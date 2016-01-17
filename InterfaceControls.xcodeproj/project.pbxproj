@@ -8,22 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		63971E221C4B46A700E3786E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E211C4B46A700E3786E /* AppDelegate.swift */; };
-		63971E241C4B46A700E3786E /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 63971E231C4B46A700E3786E /* art.scnassets */; };
 		63971E261C4B46A700E3786E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E251C4B46A700E3786E /* GameViewController.swift */; };
 		63971E291C4B46A700E3786E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63971E271C4B46A700E3786E /* Main.storyboard */; };
-		63971E2B1C4B46A700E3786E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63971E2A1C4B46A700E3786E /* Assets.xcassets */; };
 		63971E2E1C4B46A700E3786E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63971E2C1C4B46A700E3786E /* LaunchScreen.storyboard */; };
+		63971E3C1C4B4B6200E3786E /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 63971E3B1C4B4B6200E3786E /* Resources */; };
+		63971E421C4B561C00E3786E /* ImageSelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E401C4B561C00E3786E /* ImageSelectBox.swift */; };
+		63971E431C4B561C00E3786E /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E411C4B561C00E3786E /* Keyboard.swift */; };
+		63971E451C4B635100E3786E /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E441C4B635100E3786E /* Key.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		63971E1E1C4B46A700E3786E /* InterfaceControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterfaceControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63971E211C4B46A700E3786E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		63971E231C4B46A700E3786E /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		63971E251C4B46A700E3786E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		63971E281C4B46A700E3786E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		63971E2A1C4B46A700E3786E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63971E2D1C4B46A700E3786E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63971E2F1C4B46A700E3786E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63971E3B1C4B4B6200E3786E /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		63971E401C4B561C00E3786E /* ImageSelectBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectBox.swift; sourceTree = "<group>"; };
+		63971E411C4B561C00E3786E /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		63971E441C4B635100E3786E /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,41 @@
 		63971E201C4B46A700E3786E /* InterfaceControls */ = {
 			isa = PBXGroup;
 			children = (
-				63971E211C4B46A700E3786E /* AppDelegate.swift */,
-				63971E231C4B46A700E3786E /* art.scnassets */,
+				63971E371C4B49E000E3786E /* Utils */,
+				63971E3B1C4B4B6200E3786E /* Resources */,
+				63971E3F1C4B561C00E3786E /* Controls */,
 				63971E251C4B46A700E3786E /* GameViewController.swift */,
+				63971E351C4B48BC00E3786E /* Supporting Files */,
+			);
+			path = InterfaceControls;
+			sourceTree = "<group>";
+		};
+		63971E351C4B48BC00E3786E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				63971E271C4B46A700E3786E /* Main.storyboard */,
-				63971E2A1C4B46A700E3786E /* Assets.xcassets */,
 				63971E2C1C4B46A700E3786E /* LaunchScreen.storyboard */,
 				63971E2F1C4B46A700E3786E /* Info.plist */,
 			);
-			path = InterfaceControls;
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		63971E371C4B49E000E3786E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				63971E211C4B46A700E3786E /* AppDelegate.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		63971E3F1C4B561C00E3786E /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				63971E401C4B561C00E3786E /* ImageSelectBox.swift */,
+				63971E441C4B635100E3786E /* Key.swift */,
+				63971E411C4B561C00E3786E /* Keyboard.swift */,
+			);
+			path = Controls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,6 +129,7 @@
 				TargetAttributes = {
 					63971E1D1C4B46A700E3786E = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = LU8XR8Y9JS;
 					};
 				};
 			};
@@ -125,10 +156,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63971E241C4B46A700E3786E /* art.scnassets in Resources */,
 				63971E2E1C4B46A700E3786E /* LaunchScreen.storyboard in Resources */,
-				63971E2B1C4B46A700E3786E /* Assets.xcassets in Resources */,
 				63971E291C4B46A700E3786E /* Main.storyboard in Resources */,
+				63971E3C1C4B4B6200E3786E /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +170,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				63971E261C4B46A700E3786E /* GameViewController.swift in Sources */,
+				63971E451C4B635100E3786E /* Key.swift in Sources */,
+				63971E421C4B561C00E3786E /* ImageSelectBox.swift in Sources */,
+				63971E431C4B561C00E3786E /* Keyboard.swift in Sources */,
 				63971E221C4B46A700E3786E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,10 +286,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = InterfaceControls/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.orangethinkbox.InterfaceControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -264,10 +300,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = InterfaceControls/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.orangethinkbox.InterfaceControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -290,6 +329,7 @@
 				63971E341C4B46A700E3786E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
