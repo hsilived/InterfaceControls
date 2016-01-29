@@ -9,55 +9,57 @@
 import Foundation
 import SpriteKit
 
-class Key {
+class Key: SKSpriteNode {
+
+    var target: AnyObject!
+    var action: Selector!
     
-    
-    convenience override init(character: String, size: CGSize, target: AnyObject, action: Selector) {
+    init(character: String, size: CGSize, target: AnyObject, action: Selector) {
+
+        super.init(texture: nil ,color: .clearColor(), size:size)
         
-        if self(color: SKColor.clearColor(), size: size) {
-            self.name = character
-            var keyWidth: Float = size.width
-            if (character == kKeyEnter) {
-                keyWidth = size.width * 2 + kSpaceBetweenKeys - size.width / 2
-            }
-            else if (character == kKeySpace) {
-                keyWidth = size.width * 6 + kSpaceBetweenKeys * 5
-            }
-            
-            self.size = CGSizeMake(keyWidth, self.size.height)
-            var key: SKSpriteNode = SKSpriteNode.spriteNodeWithImageNamed("key")
-            var insetX: Int = 9
-            var insetY: Int = 9
-            key.centerRect = CGRectMake(insetX / key.size.width, insetY / key.size.height, (key.size.width - insetX * 2) / key.size.width, (key.size.height - insetY * 2) / key.size.height)
-            key.xScale = keyWidth / key.size.width
-            key.yScale = size.height / key.size.height
-            self.addChild(key)
-            self.userInteractionEnabled = true
-            self.characterLabel.text = character
-            
-            if (character == "done") || (character == "space") {
-                characterLabel.fontSize = 24.0
-            }
-            
-            if (character == "delete") {
-                self.characterSymbol.texture = SKTexture.textureWithImageNamed("delete_icon")
-                self.characterSymbol.size = self.characterSymbol.texture.size
-                self.characterLabel.text = ""
-            }
-            
-            if (character == "close") {
-                self.characterSymbol.texture = SKTexture.textureWithImageNamed("close_keyboard_icon")
-                self.characterSymbol.size = self.characterSymbol.texture.size
-                self.characterLabel.text = ""
-            }
-            
-            self.setTarget(target, action: action)
+        self.name = character
+        var keyWidth: CGFloat = size.width
+        
+        if (character == kKeyEnter) {
+            keyWidth = size.width * 2 + kSpaceBetweenKeys - size.width / 2
         }
+        else if (character == kKeySpace) {
+            keyWidth = size.width * 6 + kSpaceBetweenKeys * 5
+        }
+        
+        self.size = CGSizeMake(keyWidth, self.size.height)
+        let key: SKSpriteNode = SKSpriteNode(imageNamed: "key")
+        let insetX: CGFloat = 9
+        let insetY: CGFloat = 9
+        key.centerRect = CGRectMake(insetX / key.size.width, insetY / key.size.height, (key.size.width - insetX * 2) / key.size.width, (key.size.height - insetY * 2) / key.size.height)
+        key.xScale = keyWidth / key.size.width
+        key.yScale = size.height / key.size.height
+        self.addChild(key)
+        self.userInteractionEnabled = true
+        self.characterLabel.text = character
+        
+        if (character == "done") || (character == "space") {
+            characterLabel.fontSize = 24.0
+        }
+        
+        if (character == "delete") {
+            self.characterSymbol.texture = SKTexture(imageNamed: "delete_icon")
+            self.characterSymbol.size = self.characterSymbol.texture!.size()
+            self.characterLabel.text = ""
+        }
+        
+        if (character == "close") {
+            self.characterSymbol.texture = SKTexture(imageNamed: "close_keyboard_icon")
+            self.characterSymbol.size = self.characterSymbol.texture!.size()
+            self.characterLabel.text = ""
+        }
+        
+        self.setTarget(target, action: action)
     }
     
-    convenience init(character: String, size: CGSize, target: AnyObject, action: Selector) {
-        
-        return self(character: character, size: size, target: target, action: action)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setTarget(target: AnyObject, action: Selector) {
@@ -66,28 +68,25 @@ class Key {
         self.action = action
     }
     
-    func characterLabel() -> SKLabelNode {
+    private lazy var characterLabel: SKLabelNode = {
         
-        if !characterLabel {
-            
-            characterLabel = SKLabelNode(fontNamed: "Helvetica-Neue")
-            characterLabel.fontSize = 30.0
-            characterLabel.fontColor = SKColor(white: 0.2, alpha: 1.0)
-            characterLabel.verticalAlignmentMode = .Center
-            self.addChild(characterLabel)
-        }
-        return characterLabel
-    }
+        let charLabel = SKLabelNode(fontNamed: kMiscFont)
+        charLabel.fontColor = kTextColor
+        charLabel.fontSize = 30
+        charLabel.verticalAlignmentMode = .Center
+        charLabel.horizontalAlignmentMode = .Center
+        self.addChild(charLabel)
+        
+        return charLabel
+    }()
     
-    func characterSymbol() -> SKSpriteNode {
+    private lazy var characterSymbol: SKSpriteNode = {
         
-        if !characterSymbol {
-            
-            characterSymbol = SKSpriteNode.spriteNodeWithColor(SKColor.redColor(), size: CGSizeMake(20, 20))
-            self.addChild(characterSymbol)
-        }
-        return characterSymbol
-    }
+        let charSymbol = SKSpriteNode(color: .redColor(), size: CGSizeMake(20, 20))
+        self.addChild(charSymbol)
+        
+        return charSymbol
+    }()
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         

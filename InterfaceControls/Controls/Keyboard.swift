@@ -26,15 +26,17 @@ protocol KeyboardDelegate {
 class Keyboard: SKSpriteNode {
 
     var dataSource: KeyboardDataSource?
-    var delegate: KeyboardDelegate
+    var delegate: KeyboardDelegate!
     var presented: Bool = false
     var currentScene: SKScene!
     var keyContainer: SKSpriteNode?
+    //var qwertyAlphabetKeys: [AnyObject]!
     
     init(scene: SKScene) {
 
         super.init(texture: nil ,color: .clearColor(), size:CGSizeMake(scene.size.width, 100))
 
+        //qwertyAlphabetKeys = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", kKeyDelete], [kOffsetPadding, "A", "S", "D", "F", "G", "H", "J", "K", "L", kKeyEnter], [kKeyBlank, "Z", "X", "C", "V", "B", "N", "M", "&"], [kKeyBlank, kKeyBlank, kKeyBlank, kKeySpace, kKeyBlank, kKeyClose]]
         currentScene = scene
         self.zPosition = CGFloat.max
         self.position = CGPointMake(0, -scene.size.height)
@@ -116,25 +118,25 @@ class Keyboard: SKSpriteNode {
         if (keyContainer != nil) { return }
 
         //82 for ipad
-        var keyWidth: CGFloat = ((size.width - marginInsets().left - marginInsets().right) - (kSpaceBetweenKeys * 10)) / 11
+        let keyWidth: CGFloat = ((size.width - marginInsets().left - marginInsets().right) - (kSpaceBetweenKeys * 10)) / 11
         let margins = marginInsets().top + marginInsets().bottom
         let height = (CGFloat(numberOfSections()) * keyWidth) + margins + (CGFloat(numberOfSections() - 1) * kSpaceBetweenKeys)
-        var contentNodeSize: CGSize = CGSizeMake(size.width, height)
+        let contentNodeSize: CGSize = CGSizeMake(size.width, height)
         size = contentNodeSize
         keyContainer = SKSpriteNode(color: SKColor(white: 0.6, alpha: 0.8), size: contentNodeSize)
         keyContainer!.position = CGPointMake(0, -self.size.height / 2 + keyContainer!.size.height / 2)
         addChild(keyContainer!)
         
-        var initialKeyNodePosition: CGPoint = CGPointMake(-size.width / 2 + marginInsets().left, keyContainer!.size.height / 2 - keyWidth / 2 - kSpaceBetweenKeys - marginInsets().top)
+        let initialKeyNodePosition: CGPoint = CGPointMake(-size.width / 2 + marginInsets().left, keyContainer!.size.height / 2 - keyWidth / 2 - kSpaceBetweenKeys - marginInsets().top)
         
         for i in 0..<numberOfSections() {
             
             var xPos: CGFloat = initialKeyNodePosition.x
-            var yPos: CGFloat = initialKeyNodePosition.y - (CGFloat(i) * keyWidth) - CGFloat(i - 1) * kSpaceBetweenKeys;
+            let yPos: CGFloat = initialKeyNodePosition.y - (CGFloat(i) * keyWidth) - CGFloat(i - 1) * kSpaceBetweenKeys;
             
             for var j = 0; j < self.numberOfItemsInSection(i); j++ {
                 
-                var character: String = dataSource!.keyboard(self, characterAtIndexPath: NSIndexPath(forItem: j, inSection: i))
+                let character: String = dataSource!.keyboard(self, characterAtIndexPath: NSIndexPath(forItem: j, inSection: i))
                 
                 if (character == kOffsetPadding) {
                     xPos += keyWidth / 2 - kSpaceBetweenKeys
@@ -143,9 +145,9 @@ class Keyboard: SKSpriteNode {
                     xPos += keyWidth
                 }
                 else {
-                    var key: Key = Key.keyWithCharacter(character, size: CGSizeMake(keyWidth, keyWidth), target: self, action: "keyStroked:")
+                    let key: Key = Key(character: character, size: CGSizeMake(keyWidth, keyWidth), target: self, action: "keyStroked:")
                     key.position = CGPointMake(xPos + key.size.width / 2, yPos)
-                    keyContainer.addChild(key)
+                    keyContainer!.addChild(key)
                     xPos += key.size.width
                 }
 
@@ -169,11 +171,11 @@ class Keyboard: SKSpriteNode {
             self.delegate.keyboardDidHitEnterKey()
         }
         else {
-            self.delegate.keyboard(self, didSelectCharacter: keyNode.name)
+            self.delegate.keyboard(self, didSelectCharacter: keyNode.name!)
         }
     }
 
-    func qwertyAlphabetKeys() -> [AnyObject] {
+    class func qwertyAlphabetKeys() -> [[AnyObject]] {
         
         return [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", kKeyDelete], [kOffsetPadding, "A", "S", "D", "F", "G", "H", "J", "K", "L", kKeyEnter], [kKeyBlank, "Z", "X", "C", "V", "B", "N", "M", "&"], [kKeyBlank, kKeyBlank, kKeyBlank, kKeySpace, kKeyBlank, kKeyClose]]
     }

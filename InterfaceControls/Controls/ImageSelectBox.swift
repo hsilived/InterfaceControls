@@ -28,12 +28,6 @@ let kKeyBlank: String = "blank"
 let kKeyClose: String = "close"
 let kOffsetPadding: String = "pad"
 
-//#define OFFSET_SIZE                         20
-//#define SPACE_BETWEEN_KEYS                  10
-//#define AMOUNT_TO_MOVE_CARAT_FOR_SPACE      18
-
-
-
 
 class ImageSelectionButton: SKSpriteNode {
     
