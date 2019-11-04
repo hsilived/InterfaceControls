@@ -1,9 +1,9 @@
 //
 //  SKEmitterNode+Extensions.swift
-//  Drive To Survive
+//  SafeBuster
 //
-//  Created by DeviL on 2015-10-15.
-//  Copyright © 2015 Orange Think Box. All rights reserved.
+//  Created by DeviL on 2017-10-15.
+//  Copyright © 2017 Orange Think Box. All rights reserved.
 //
 
 import Foundation
@@ -11,37 +11,37 @@ import SpriteKit
 
 extension SKEmitterNode {
     
-    class func nodeFileWith(fileName: NSString) -> SKEmitterNode {
+    class func nodeFileWith(_ fileName: NSString) -> SKEmitterNode {
         
-        let baseFileName: String = fileName.stringByDeletingPathExtension
+        let baseFileName: String = fileName.deletingPathExtension
         var fileExtension: String = fileName.pathExtension
         
         if fileExtension.isEmpty {
             fileExtension = "sks"
         }
        
-        let emitterPath : String = NSBundle.mainBundle().pathForResource(baseFileName, ofType:fileExtension)!
+        let emitterPath : String = Bundle.main.path(forResource: baseFileName, ofType:fileExtension)!
         
-        let node: SKEmitterNode = NSKeyedUnarchiver.unarchiveObjectWithFile(emitterPath) as! SKEmitterNode
+        let node: SKEmitterNode = NSKeyedUnarchiver.unarchiveObject(withFile: emitterPath) as! SKEmitterNode
         
         return node
     }
     
-    public class func skt_emitterNamed(name: String) -> SKEmitterNode {
-        
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(NSBundle.mainBundle().pathForResource(name, ofType: "sks")!) as! SKEmitterNode
+    public class func skt_emitterNamed(_ name: String) -> SKEmitterNode {
+        print("name \(name)" )
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Bundle.main.path(forResource: name, ofType: "sks")!) as! SKEmitterNode
     }
     
-    func dieInDuration(duration: NSTimeInterval) {
+    func dieInDuration(_ duration: TimeInterval) {
         
-        let firstWait: SKAction = SKAction.waitForDuration(duration)
+        let firstWait: SKAction = SKAction.wait(forDuration: duration)
         let weakSelf: SKEmitterNode = self
-        let stop: SKAction = SKAction.runBlock({
+        let stop: SKAction = SKAction.run({
             weakSelf.particleBirthRate = 0
         })
-        let secondWait: SKAction = SKAction.waitForDuration(NSTimeInterval(self.particleLifetime))
+        let secondWait: SKAction = SKAction.wait(forDuration: TimeInterval(self.particleLifetime))
         let remove: SKAction = SKAction.removeFromParent()
         let die: SKAction = SKAction.sequence([firstWait, stop, secondWait, remove])
-        self.runAction(die)
+        self.run(die)
     }
 }

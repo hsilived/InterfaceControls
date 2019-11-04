@@ -37,7 +37,7 @@ public class SKTAudio {
 
   public func playBackgroundMusic(filename: String) {
     
-    let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
+    let url = Bundle.main.url(forResource: filename, withExtension: nil)
     
     if (url == nil) {
         
@@ -47,7 +47,7 @@ public class SKTAudio {
 
     do {
         
-        try backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: url!) //(contentsOfURL: url, error: &error)
+        try backgroundMusicPlayer = AVAudioPlayer(contentsOf: url!) //(contentsOfURL: url, error: &error)
         
         let player = backgroundMusicPlayer
         
@@ -63,7 +63,7 @@ public class SKTAudio {
 
     public func loadBackgroundMusic(filename: String) {
         
-        let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
+        let url = Bundle.main.url(forResource: filename, withExtension: nil)
         
         if (url == nil) {
             
@@ -73,7 +73,7 @@ public class SKTAudio {
         
         do {
             
-            try backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: url!) //(contentsOfURL: url, error: &error)
+            try backgroundMusicPlayer = AVAudioPlayer(contentsOf: url!) //(contentsOfURL: url, error: &error)
             
             let player = backgroundMusicPlayer
             
@@ -90,7 +90,7 @@ public class SKTAudio {
     
         if let player = backgroundMusicPlayer {
 
-            if player.playing {
+            if player.isPlaying {
                 player.pause()
             }
         }
@@ -100,7 +100,7 @@ public class SKTAudio {
         
         if let player = backgroundMusicPlayer {
             
-            if player.playing {
+            if player.isPlaying {
                 player.stop()
             }
         }
@@ -110,7 +110,7 @@ public class SKTAudio {
     
         if let player = backgroundMusicPlayer {
 
-            if !player.playing {
+            if !player.isPlaying {
                 player.play()
             }
         }
@@ -118,7 +118,7 @@ public class SKTAudio {
 
     public func playSoundEffect(filename: String) {
         
-        let url = NSBundle.mainBundle().URLForResource(filename, withExtension: nil)
+        let url = Bundle.main.url(forResource: filename, withExtension: nil)
         
         if (url == nil) {
             
@@ -128,7 +128,7 @@ public class SKTAudio {
 
         do {
         
-            try soundEffectPlayer = AVAudioPlayer(contentsOfURL: url!) //(contentsOfURL: url, error: &error)
+            try soundEffectPlayer = AVAudioPlayer(contentsOf: url!) //(contentsOfURL: url, error: &error)
 
             let player = soundEffectPlayer
         

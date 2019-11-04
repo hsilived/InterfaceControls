@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2013-2014 Razeware LLC
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,28 +26,24 @@ public extension SKNode {
 
     var x: CGFloat {
         get {
-            
             return position.x
         }
         set {
-            
             position.x = newValue
         }
     }
     
     var y: CGFloat {
         get {
-            
             return position.y
         }
         set {
-            
             position.y = newValue
         }
     }
     
-  /** Lets you treat the node's scale as a CGPoint value. */
-  public var scaleAsPoint: CGPoint {
+  //Lets you treat the node's scale as a CGPoint value.
+  var scaleAsPoint: CGPoint {
     
     get {
       return CGPoint(x: xScale, y: yScale)
@@ -58,18 +54,13 @@ public extension SKNode {
     }
   }
 
-  /**
-   * Runs an action on the node that performs a closure or function after 
-   * a given time.
-   */
-  public func afterDelay(delay: NSTimeInterval, runBlock block: dispatch_block_t) {
-    runAction(SKAction.sequence([SKAction.waitForDuration(delay), SKAction.runBlock(block)]))
-  }
+  //Runs an action on the node that performs a closure or function after  a given time.
+//    public class func afterDelay(_ delay: TimeInterval, runBlock block: @escaping () -> Void) {
+//    .run(SKAction.sequence([SKAction.waitForDuration(delay), SKAction.run(block)]))
+//  }
 
-  /**
-   * Makes this node the frontmost node in its parent.
-   */
-  public func bringToFront() {
+  //Makes this node the frontmost node in its parent.
+  func bringToFront() {
     if let parent = self.parent{
       removeFromParent()
       parent.addChild(self)
@@ -85,7 +76,7 @@ public extension SKNode {
    * @param rate How fast the node rotates. Must have a value between 0.0 and
    *        1.0, where smaller means slower; 1.0 is instantaneous.
    */
-  public func rotateToVelocity(velocity: CGVector, rate: CGFloat) {
+  func rotateToVelocity(velocity: CGVector, rate: CGFloat) {
     // Determine what the rotation angle of the node ought to be based on the
     // current velocity of its physics body. This assumes that at 0 degrees the
     // node is pointed up, not to the right, so to compensate we subtract π/4

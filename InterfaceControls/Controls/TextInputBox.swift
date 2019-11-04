@@ -1,20 +1,22 @@
 //
-//  TextInputBox.m
+//  TextInputBox.swift
 //  TextInputBox
 //
-//  Created by Ron Myschuk
-//  Copyright (c) 2015 Orange Think Box. All rights reserved.
+//  Created by Orange Think Box
+//  Copyright (c) 2017 Orange Think Box. All rights reserved.
 //
 import SpriteKit
 
 protocol TextInputBoxDelegate {
     
     func textInputNodeDidStartEditing(textInputNode: TextInputBox)
+    
+    //TODO: I think that these 2 should have been optional
     func textInputNodeDidChange(textInputNode: TextInputBox)
     func textInputNodeShouldClear(textInputNode: TextInputBox) -> Bool
 }
 
-class TextInputBox: SKSpriteNode, KeyboardDelegate {
+class TextInputBox: SKSpriteNode {
     
     var delegate: TextInputBoxDelegate!
     var maxTextLength: Int = 0
@@ -22,6 +24,7 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
     var wasEditing: Bool = false
     var characters: [String] = [String]()
     var keyboard: Keyboard!
+    var keyboardYPos: CGFloat?
     
     //MARK: - Custom Properties
     
@@ -43,12 +46,17 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
         
         didSet {
             
-            for i in 0..<initialText.characters.count - 1 {
-                
-                //get the individual letter from the string and add it to the characters array
-                let index = initialText.startIndex.advancedBy(i)
-                characters.append("\(initialText[index])")
-            }
+            let tempString = initialText
+            
+            //characters = Array<Any>(tempString.characters) as! [String]
+            characters = tempString.map { String($0) }
+            
+//            for i in 0..<initialText.characters.count - 1 {
+//
+//                //get the individual letter from the string and add it to the characters array
+//                let index = initialText.startIndex.advancedBy(i)
+//                characters.append("\(initialText[index])")
+//            }
             blank = false
             textLabel.fontColor = kTextColor
             text = initialText
@@ -63,10 +71,16 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
                 
                 removeDefault()
                 //display carat
-                toggleCaratSymbolHidden(false)
+                toggleCaratSymbolHidden(hidden: false)
                 
                 if !keyboard.presented {
-                    keyboard.present()
+                    
+//                    if keyboardYPos != nil {
+//                        keyboard.present(yPos: keyboardYPos)
+//                    }
+//                    else {
+                        keyboard.present()
+//                    }
                 }
                 keyboard.delegate = self
                 wasEditing = true
@@ -74,7 +88,7 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
             else {
                 
                 //hide carat
-                toggleCaratSymbolHidden(true)
+                toggleCaratSymbolHidden(hidden: true)
                 
                 if (text == "") {
                     resetDefault()
@@ -88,57 +102,68 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
         }
     }
     
-    init(keyboard: Keyboard, size: CGSize) {
-        
-        super.init(texture: nil ,color: .clearColor(), size:size)
-        
-        self.keyboard = keyboard
-        //keyboard.delegate = self;
-        //keyboard = [Keyboard keyboardNodeWithScene:self];
-        //keyboard.dataSource = self;
-        userInteractionEnabled = true
-        anchorPoint = CGPointMake(0.5, 0.5)
-        //position = CGPointMake(-size.width / 2, 0);
-        blank = true
-        let textBox: SKSpriteNode = SKSpriteNode(imageNamed: "textbox")
-        let insetX: CGFloat = 9
-        let insetY: CGFloat = 9
-        textBox.centerRect = CGRectMake(insetX / textBox.size.width, insetY / textBox.size.height, (textBox.size.width - insetX * 2) / textBox.size.width, (textBox.size.height - insetY * 2) / textBox.size.height)
-        textBox.xScale = size.width / textBox.size.width
-        textBox.yScale = size.height / textBox.size.height
-        addChild(textBox)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private lazy var textLabel: SKLabelNode = {
         
         let tempLabel = SKLabelNode(fontNamed: kTextBoxFont)
         tempLabel.fontColor = kDefaultTextColor
-        tempLabel.fontSize = kTextboxFontSize
-        tempLabel.position = CGPointMake(-self.size.width / 2 + 10, 0)
-        tempLabel.verticalAlignmentMode = .Center
-        tempLabel.horizontalAlignmentMode = .Left
+        tempLabel.fontSize = kTextBoxFontSize
+        tempLabel.position = CGPoint(x: (0 - self.size.width / 2) + 20, y: 0)
+        tempLabel.zPosition = 10
+        tempLabel.verticalAlignmentMode = .center
+        tempLabel.horizontalAlignmentMode = .left
         self.addChild(tempLabel)
         
         return tempLabel
     }()
     
     private lazy var caratSymbol: SKSpriteNode = {
-    
+        
         let carat = SKSpriteNode(imageNamed: "carat")
-        carat.size = CGSizeMake(carat.texture!.size().width * kTextboxFontSize / carat.texture!.size().height, kTextboxFontSize)
+        carat.size = CGSize(width: carat.texture!.size().width * kTextBoxFontSize / carat.texture!.size().height, height: kTextBoxFontSize)
+        carat.zPosition = 10
         self.addChild(carat)
-        carat.runAction(self.pulseForever())
+        carat.run(self.pulseForever())
         
         return carat
     }()
     
+    //MARK:- Initializers
+    
+    init(keyboard: Keyboard, size: CGSize) {
+        
+        super.init(texture: nil ,color: .clear, size:size)
+        
+        self.keyboard = keyboard
+
+        setup()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    func setup() {
+        
+        isUserInteractionEnabled = true
+        blank = true
+        
+        let textBox = SKSpriteNode(imageNamed: "textbox")
+        let insetX: CGFloat = 9
+        let insetY: CGFloat = 9
+        let boxWidth = textBox.size.width
+        let boxHeight = textBox.size.height
+        textBox.centerRect = CGRect(x: insetX / boxWidth, y: insetY / boxHeight, width: (boxWidth - insetX * 2) / boxWidth, height: (boxHeight - insetY * 2) / boxHeight)
+        textBox.xScale = size.width / boxWidth
+        textBox.yScale = size.height / boxHeight
+        addChild(textBox)
+    }
+    
     func toggleCaratSymbolHidden(hidden: Bool) {
         
-        caratSymbol.hidden = hidden
+        caratSymbol.isHidden = hidden
         if !hidden {
             setCaratPosition()
         }
@@ -152,37 +177,42 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
             pos = textLabel.position.x
         }
         else {
-            pos = textLabel.position.x + textLabel.frame.size.width
+            pos = textLabel.position.x + textLabel.frame.size.width + 5
         }
-        caratSymbol.position = CGPointMake(pos, caratSymbol.position.y)
+        caratSymbol.position = CGPoint(x: pos, y: caratSymbol.position.y)
     }
     
     func decrementCaratPosition(amount: Int) {
-        caratSymbol.position = CGPointMake(caratSymbol.position.x - CGFloat(amount), caratSymbol.position.y)
+        caratSymbol.position = CGPoint(x: caratSymbol.position.x - CGFloat(amount), y: caratSymbol.position.y)
     }
     
     func incrementCaratPosition(amount: Int) {
-        caratSymbol.position = CGPointMake(caratSymbol.position.x + CGFloat(amount), caratSymbol.position.y)
+        caratSymbol.position = CGPoint(x: caratSymbol.position.x + CGFloat(amount), y: caratSymbol.position.y)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        NSLog("touch ended")
-        super.touchesEnded(touches, withEvent: event)
-        delegate.textInputNodeDidStartEditing(self)
+        print("touch ended")
+        super.touchesEnded(touches, with: event)
+        
+        //we send this out to the delgate to control editing so that we can swicth off editing on everything else
+        delegate.textInputNodeDidStartEditing(textInputNode: self)
     }
-    
-    //MARK: - Keyboard Delegate
-    
+}
+
+//MARK: - KeyboardDelegate
+
+extension TextInputBox: KeyboardDelegate {
+
     func keyboard(keyboard: Keyboard, didSelectCharacter character: String) {
         
-        if text.characters.count == maxTextLength { return }
+        if text.count == maxTextLength { return }
         
         blank = false
         removeDefault()
         text = "\(text)\(character)"
         if (character == " ") {
-            incrementCaratPosition(Int(kAmountToMoveCaratForSpace))
+            incrementCaratPosition(amount: Int(kAmountToMoveCaratForSpace))
         }
         else {
             setCaratPosition()
@@ -190,40 +220,33 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
         characters.append(character)
     }
     
-    func keyboardDidHitDeleteKey(keyboardNode: Keyboard) {
+    func keyboardDidHitDeleteKey(keyboard: Keyboard) {
         
         if blank { return }
         
         //if ([delegate textInputNodeShouldClear:self]) {
         let string: String = text
-        var newString: String = ""
+   
+        if string.count < 1 { return }
         
-        if string.characters.count < 1 { return }
-        
-        for i in 0..<string.characters.count - 1 {
-            
-            //get the individual letter from the string
-            let index = string.startIndex.advancedBy(i)
-            newString = "\(newString)\(string[index])"
-        }
+
+        let endIndex = string.index(string.endIndex, offsetBy: -1)
+//        let newString = string.substring(to: endIndex)
+        let newString = String(string[..<endIndex])
         
         if (newString == "") {
             blank = true
         }
         
-        //        [self resetDefault];
-        //    }
-        //    else {
         text = newString
         characters.removeLast()
         
         if (characters.last == " ") {
-            decrementCaratPosition(Int(kAmountToMoveCaratForSpace))
+            decrementCaratPosition(amount: Int(kAmountToMoveCaratForSpace))
         }
         else {
             setCaratPosition()
         }
-        // }
     }
     
     func keyboardDidHitEnterKey() {
@@ -252,15 +275,15 @@ class TextInputBox: SKSpriteNode, KeyboardDelegate {
         text = defaultText
         textLabel.fontColor = kDefaultTextColor
         //hide carat
-        toggleCaratSymbolHidden(true)
+        toggleCaratSymbolHidden(hidden: true)
     }
     
     func pulseForever() -> SKAction {
         
-        let fadeOut: SKAction = SKAction.fadeOutWithDuration(0.2)
-        let fadeIn: SKAction = SKAction.fadeInWithDuration(0.2)
-        let pulse: SKAction = SKAction.sequence([fadeOut, fadeIn])
-        let pulseForever: SKAction = SKAction.repeatActionForever(pulse)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+        let pulse = SKAction.sequence([fadeOut, fadeIn])
+        let pulseForever = SKAction.repeatForever(pulse)
         return pulseForever
     }
 }

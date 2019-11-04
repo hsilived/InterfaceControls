@@ -30,18 +30,18 @@ import SpriteKit
 
 extension String {
     
-    func contains(find: String) -> Bool {
-        
-        if rangeOfString(find) != nil {
-            return true
-        }
-        return false
-    }
-    
-    func replace(target: String, withString: String) -> String {
-        
-        return self.stringByReplacingOccurrencesOfString(target, withString: withString, options: NSStringCompareOptions.LiteralSearch, range: nil)
-    }
+//    func contains(find: String) -> Bool {
+//        
+//        if rangeOfString(find) != nil {
+//            return true
+//        }
+//        return false
+//    }
+//    
+//    func replace(target: String, withString: String) -> String {
+//        
+//        return self.stringByReplacingOccurrencesOfString(target, withString: withString, options: NSString.CompareOptions.LiteralSearch, range: nil)
+//    }
 }
 
 extension CGPoint {
@@ -59,17 +59,17 @@ extension SKNode {
     func rotateToFaceNode(targetNode: SKNode, sourceNode: SKNode) {
         print("Source position: \(sourceNode.position)")
         print("Target position: \(targetNode.position)")
-        let angle = atan2(targetNode.position.y - sourceNode.position.y, targetNode.position.x - sourceNode.position.x) - CGFloat(M_PI/2)
+        let angle = atan2(targetNode.position.y - sourceNode.position.y, targetNode.position.x - sourceNode.position.x) - CGFloat.pi / 2
         print("Angle: \(angle)")
-        self.runAction(SKAction.rotateToAngle(angle, duration: 0))
+        self.run(SKAction.rotate(toAngle: angle, duration: 0))
     }
 }
 
 // MARK: Delay closure
-func delay(delay: Double, closure:()->()) {
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)) ), dispatch_get_main_queue(), closure)
-}
+//func delay(delay: Double, closure:()->()) {
+//
+//    dispatch_after(dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(delay * Double(NSEC_PER_SEC)) ), dispatch_get_main_queue(), closure)
+//}
 
 // MARK: Distance between nodes
 func distanceBetween(nodeA: SKNode, nodeB: SKNode) -> CGFloat {
@@ -79,28 +79,28 @@ func distanceBetween(nodeA: SKNode, nodeB: SKNode) -> CGFloat {
 
 class Utility: NSObject {
         
-    class func hexStringToUIColor(hex:String) -> UIColor {
-        
-        var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet() as NSCharacterSet).uppercaseString
-        
-        if (cString.hasPrefix("#")) {
-            cString = cString.stringByReplacingOccurrencesOfString("#", withString: "")
-        }
-        
-        if cString.characters.count != 6 {
-            return UIColor.grayColor()
-        }
-        
-        var rgbValue:UInt32 = 0
-        NSScanner(string: cString).scanHexInt(&rgbValue)
-        
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
-    }
+//    class func hexStringToUIColor(hex:String) -> UIColor {
+//
+//        var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet() as NSCharacterSet).uppercaseString
+//
+//        if (cString.hasPrefix("#")) {
+//            cString = cString.stringByReplacingOccurrencesOfString("#", withString: "")
+//        }
+//
+//        if cString.count != 6 {
+//            return UIColor.gray
+//        }
+//
+//        var rgbValue:UInt32 = 0
+//        Scanner(string: cString).scanHexInt32(&rgbValue)
+//
+//        return UIColor(
+//            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+//            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+//            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+//            alpha: CGFloat(1.0)
+//        )
+//    }
 
 //    class func alert(title: String, message: String, view: UIViewController) {
 //        

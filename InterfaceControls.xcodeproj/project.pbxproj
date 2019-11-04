@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6380A22F236F588800E523E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380A22E236F588800E523E1 /* Settings.swift */; };
+		6380A232237085F300E523E1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6380A231237085F300E523E1 /* GameScene.sks */; };
+		6380A23523708C8800E523E1 /* Molot.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6380A23423708C8800E523E1 /* Molot.otf */; };
+		6380A23723708DC300E523E1 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6380A23623708DC300E523E1 /* Game.xcassets */; };
 		63971E221C4B46A700E3786E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E211C4B46A700E3786E /* AppDelegate.swift */; };
 		63971E261C4B46A700E3786E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E251C4B46A700E3786E /* GameViewController.swift */; };
 		63971E291C4B46A700E3786E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63971E271C4B46A700E3786E /* Main.storyboard */; };
 		63971E2E1C4B46A700E3786E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63971E2C1C4B46A700E3786E /* LaunchScreen.storyboard */; };
-		63971E3C1C4B4B6200E3786E /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 63971E3B1C4B4B6200E3786E /* Resources */; };
 		63971E421C4B561C00E3786E /* ImageSelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E401C4B561C00E3786E /* ImageSelectBox.swift */; };
 		63971E431C4B561C00E3786E /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E411C4B561C00E3786E /* Keyboard.swift */; };
 		63971E451C4B635100E3786E /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E441C4B635100E3786E /* Key.swift */; };
@@ -33,16 +36,39 @@
 		63971E661C51FA4100E3786E /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E651C51FA4100E3786E /* Utility.swift */; };
 		63971E681C51FCEC00E3786E /* TextInputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E671C51FCEC00E3786E /* TextInputBox.swift */; };
 		63971E6A1C5AD11400E3786E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E691C5AD11400E3786E /* GameScene.swift */; };
+		63971E7C1C5BCDFC00E3786E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63971E6D1C5BCDFC00E3786E /* Assets.xcassets */; };
+		63971E7D1C5BCDFC00E3786E /* carat.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E6E1C5BCDFC00E3786E /* carat.png */; };
+		63971E7E1C5BCDFC00E3786E /* close_keyboard_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E6F1C5BCDFC00E3786E /* close_keyboard_icon.png */; };
+		63971E7F1C5BCDFC00E3786E /* color_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E701C5BCDFC00E3786E /* color_base.png */; };
+		63971E801C5BCDFC00E3786E /* color_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E711C5BCDFC00E3786E /* color_highlight.png */; };
+		63971E811C5BCDFC00E3786E /* delete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E721C5BCDFC00E3786E /* delete_icon.png */; };
+		63971E821C5BCDFC00E3786E /* direction_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E731C5BCDFC00E3786E /* direction_button.png */; };
+		63971E831C5BCDFC00E3786E /* direction_symbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E741C5BCDFC00E3786E /* direction_symbol.png */; };
+		63971E841C5BCDFC00E3786E /* down_symbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E751C5BCDFC00E3786E /* down_symbol.png */; };
+		63971E851C5BCDFC00E3786E /* image_selector_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E761C5BCDFC00E3786E /* image_selector_box.png */; };
+		63971E861C5BCDFC00E3786E /* imagebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E771C5BCDFC00E3786E /* imagebox.png */; };
+		63971E871C5BCDFC00E3786E /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E781C5BCDFC00E3786E /* key.png */; };
+		63971E881C5BCDFC00E3786E /* textbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E791C5BCDFC00E3786E /* textbox.png */; };
+		63971E891C5BCDFC00E3786E /* up_symbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 63971E7A1C5BCDFC00E3786E /* up_symbol.png */; };
+		63971E8B1C5BDF6100E3786E /* Logos.Atlas in Resources */ = {isa = PBXBuildFile; fileRef = 63971E8A1C5BDF6100E3786E /* Logos.Atlas */; };
+		63971E8E1C5BDFB500E3786E /* tap.caf in Resources */ = {isa = PBXBuildFile; fileRef = 63971E8D1C5BDFB500E3786E /* tap.caf */; };
+		63971E901C5BF69700E3786E /* NumberSelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E8F1C5BF69700E3786E /* NumberSelectBox.swift */; };
+		63971E921C5BFBB600E3786E /* NumericButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E911C5BFBB600E3786E /* NumericButton.swift */; };
+		63971E941C5C0B0100E3786E /* DirectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E931C5C0B0100E3786E /* DirectionButton.swift */; };
+		63971E961C5C0DD900E3786E /* OptionSelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63971E951C5C0DD900E3786E /* OptionSelectBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6380A22E236F588800E523E1 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		6380A231237085F300E523E1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		6380A23423708C8800E523E1 /* Molot.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Molot.otf; sourceTree = "<group>"; };
+		6380A23623708DC300E523E1 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
 		63971E1E1C4B46A700E3786E /* InterfaceControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterfaceControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63971E211C4B46A700E3786E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63971E251C4B46A700E3786E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		63971E281C4B46A700E3786E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63971E2D1C4B46A700E3786E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63971E2F1C4B46A700E3786E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63971E3B1C4B4B6200E3786E /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		63971E401C4B561C00E3786E /* ImageSelectBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectBox.swift; sourceTree = "<group>"; };
 		63971E411C4B561C00E3786E /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		63971E441C4B635100E3786E /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
@@ -64,6 +90,26 @@
 		63971E651C51FA4100E3786E /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		63971E671C51FCEC00E3786E /* TextInputBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputBox.swift; sourceTree = "<group>"; };
 		63971E691C5AD11400E3786E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		63971E6D1C5BCDFC00E3786E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		63971E6E1C5BCDFC00E3786E /* carat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carat.png; sourceTree = "<group>"; };
+		63971E6F1C5BCDFC00E3786E /* close_keyboard_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_keyboard_icon.png; sourceTree = "<group>"; };
+		63971E701C5BCDFC00E3786E /* color_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color_base.png; sourceTree = "<group>"; };
+		63971E711C5BCDFC00E3786E /* color_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color_highlight.png; sourceTree = "<group>"; };
+		63971E721C5BCDFC00E3786E /* delete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_icon.png; sourceTree = "<group>"; };
+		63971E731C5BCDFC00E3786E /* direction_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = direction_button.png; sourceTree = "<group>"; };
+		63971E741C5BCDFC00E3786E /* direction_symbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = direction_symbol.png; sourceTree = "<group>"; };
+		63971E751C5BCDFC00E3786E /* down_symbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_symbol.png; sourceTree = "<group>"; };
+		63971E761C5BCDFC00E3786E /* image_selector_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_selector_box.png; sourceTree = "<group>"; };
+		63971E771C5BCDFC00E3786E /* imagebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imagebox.png; sourceTree = "<group>"; };
+		63971E781C5BCDFC00E3786E /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
+		63971E791C5BCDFC00E3786E /* textbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textbox.png; sourceTree = "<group>"; };
+		63971E7A1C5BCDFC00E3786E /* up_symbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up_symbol.png; sourceTree = "<group>"; };
+		63971E8A1C5BDF6100E3786E /* Logos.Atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Logos.Atlas; sourceTree = "<group>"; };
+		63971E8D1C5BDFB500E3786E /* tap.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tap.caf; sourceTree = "<group>"; };
+		63971E8F1C5BF69700E3786E /* NumberSelectBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberSelectBox.swift; sourceTree = "<group>"; };
+		63971E911C5BFBB600E3786E /* NumericButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericButton.swift; sourceTree = "<group>"; };
+		63971E931C5C0B0100E3786E /* DirectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionButton.swift; sourceTree = "<group>"; };
+		63971E951C5C0DD900E3786E /* OptionSelectBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionSelectBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +123,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6380A230237085C600E523E1 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				6380A231237085F300E523E1 /* GameScene.sks */,
+			);
+			name = Scenes;
+			path = InterfaceControls/Scenes;
+			sourceTree = SOURCE_ROOT;
+		};
+		6380A23323708C8800E523E1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6380A23423708C8800E523E1 /* Molot.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		63971E151C4B46A700E3786E = {
 			isa = PBXGroup;
 			children = (
@@ -97,9 +160,10 @@
 		63971E201C4B46A700E3786E /* InterfaceControls */ = {
 			isa = PBXGroup;
 			children = (
+				63971E6B1C5BCDFC00E3786E /* Resources */,
 				63971E371C4B49E000E3786E /* Utils */,
-				63971E3B1C4B4B6200E3786E /* Resources */,
 				63971E3F1C4B561C00E3786E /* Controls */,
+				6380A230237085C600E523E1 /* Scenes */,
 				63971E691C5AD11400E3786E /* GameScene.swift */,
 				63971E251C4B46A700E3786E /* GameViewController.swift */,
 				63971E351C4B48BC00E3786E /* Supporting Files */,
@@ -120,6 +184,7 @@
 		63971E371C4B49E000E3786E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6380A22E236F588800E523E1 /* Settings.swift */,
 				63971E211C4B46A700E3786E /* AppDelegate.swift */,
 			);
 			name = Utils;
@@ -133,6 +198,10 @@
 				63971E441C4B635100E3786E /* Key.swift */,
 				63971E411C4B561C00E3786E /* Keyboard.swift */,
 				63971E671C51FCEC00E3786E /* TextInputBox.swift */,
+				63971E911C5BFBB600E3786E /* NumericButton.swift */,
+				63971E8F1C5BF69700E3786E /* NumberSelectBox.swift */,
+				63971E931C5C0B0100E3786E /* DirectionButton.swift */,
+				63971E951C5C0DD900E3786E /* OptionSelectBox.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -157,6 +226,39 @@
 				63971E551C51F6EE00E3786E /* Vector3.swift */,
 			);
 			path = SKTUtils;
+			sourceTree = "<group>";
+		};
+		63971E6B1C5BCDFC00E3786E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6380A23623708DC300E523E1 /* Game.xcassets */,
+				63971E8A1C5BDF6100E3786E /* Logos.Atlas */,
+				63971E6D1C5BCDFC00E3786E /* Assets.xcassets */,
+				63971E8C1C5BDFB500E3786E /* sounds */,
+				6380A23323708C8800E523E1 /* Fonts */,
+				63971E6E1C5BCDFC00E3786E /* carat.png */,
+				63971E6F1C5BCDFC00E3786E /* close_keyboard_icon.png */,
+				63971E701C5BCDFC00E3786E /* color_base.png */,
+				63971E711C5BCDFC00E3786E /* color_highlight.png */,
+				63971E721C5BCDFC00E3786E /* delete_icon.png */,
+				63971E731C5BCDFC00E3786E /* direction_button.png */,
+				63971E741C5BCDFC00E3786E /* direction_symbol.png */,
+				63971E751C5BCDFC00E3786E /* down_symbol.png */,
+				63971E761C5BCDFC00E3786E /* image_selector_box.png */,
+				63971E771C5BCDFC00E3786E /* imagebox.png */,
+				63971E781C5BCDFC00E3786E /* key.png */,
+				63971E791C5BCDFC00E3786E /* textbox.png */,
+				63971E7A1C5BCDFC00E3786E /* up_symbol.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		63971E8C1C5BDFB500E3786E /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				63971E8D1C5BDFB500E3786E /* tap.caf */,
+			);
+			path = sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,7 +288,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Orange Think Box";
 				TargetAttributes = {
 					63971E1D1C4B46A700E3786E = {
@@ -197,7 +299,7 @@
 			};
 			buildConfigurationList = 63971E191C4B46A700E3786E /* Build configuration list for PBXProject "InterfaceControls" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -218,9 +320,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63971E871C5BCDFC00E3786E /* key.png in Resources */,
 				63971E2E1C4B46A700E3786E /* LaunchScreen.storyboard in Resources */,
+				63971E851C5BCDFC00E3786E /* image_selector_box.png in Resources */,
+				63971E891C5BCDFC00E3786E /* up_symbol.png in Resources */,
+				63971E811C5BCDFC00E3786E /* delete_icon.png in Resources */,
+				6380A23723708DC300E523E1 /* Game.xcassets in Resources */,
+				6380A23523708C8800E523E1 /* Molot.otf in Resources */,
+				63971E841C5BCDFC00E3786E /* down_symbol.png in Resources */,
+				63971E7C1C5BCDFC00E3786E /* Assets.xcassets in Resources */,
+				63971E831C5BCDFC00E3786E /* direction_symbol.png in Resources */,
+				63971E861C5BCDFC00E3786E /* imagebox.png in Resources */,
+				63971E8E1C5BDFB500E3786E /* tap.caf in Resources */,
 				63971E291C4B46A700E3786E /* Main.storyboard in Resources */,
-				63971E3C1C4B4B6200E3786E /* Resources in Resources */,
+				63971E821C5BCDFC00E3786E /* direction_button.png in Resources */,
+				63971E801C5BCDFC00E3786E /* color_highlight.png in Resources */,
+				63971E881C5BCDFC00E3786E /* textbox.png in Resources */,
+				63971E8B1C5BDF6100E3786E /* Logos.Atlas in Resources */,
+				6380A232237085F300E523E1 /* GameScene.sks in Resources */,
+				63971E7F1C5BCDFC00E3786E /* color_base.png in Resources */,
+				63971E7E1C5BCDFC00E3786E /* close_keyboard_icon.png in Resources */,
+				63971E7D1C5BCDFC00E3786E /* carat.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +356,7 @@
 				63971E631C51F6EE00E3786E /* SKTTimingFunctions.swift in Sources */,
 				63971E5F1C51F6EE00E3786E /* SKNode+Extensions.swift in Sources */,
 				63971E451C4B635100E3786E /* Key.swift in Sources */,
+				63971E961C5C0DD900E3786E /* OptionSelectBox.swift in Sources */,
 				63971E591C51F6EE00E3786E /* Int+Extensions.swift in Sources */,
 				63971E421C4B561C00E3786E /* ImageSelectBox.swift in Sources */,
 				63971E681C51FCEC00E3786E /* TextInputBox.swift in Sources */,
@@ -248,7 +369,11 @@
 				63971E5C1C51F6EE00E3786E /* SKAction+SpecialEffects.swift in Sources */,
 				63971E661C51FA4100E3786E /* Utility.swift in Sources */,
 				63971E561C51F6EE00E3786E /* CGFloat+Extensions.swift in Sources */,
+				6380A22F236F588800E523E1 /* Settings.swift in Sources */,
 				63971E6A1C5AD11400E3786E /* GameScene.swift in Sources */,
+				63971E901C5BF69700E3786E /* NumberSelectBox.swift in Sources */,
+				63971E941C5C0B0100E3786E /* DirectionButton.swift in Sources */,
+				63971E921C5BFBB600E3786E /* NumericButton.swift in Sources */,
 				63971E5A1C51F6EE00E3786E /* Reachability.swift in Sources */,
 				63971E221C4B46A700E3786E /* AppDelegate.swift in Sources */,
 				63971E601C51F6EE00E3786E /* SKSpriteNode+Extensions.swift in Sources */,
@@ -287,13 +412,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -315,7 +450,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -332,13 +467,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -354,9 +499,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -373,6 +519,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.orangethinkbox.InterfaceControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -387,6 +535,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.orangethinkbox.InterfaceControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

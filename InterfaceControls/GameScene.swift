@@ -9,56 +9,121 @@
 import Foundation
 import SpriteKit
 
-class GameScene: SKScene, KeyboardDataSource, TextInputBoxDelegate, ImageSelectBoxDataSource, ImageSelectBoxDelegate {//, ColorPickerGridDataSource, ColorPickerGridDelegate, NumberSelectBoxDelegate, OptionSelectBoxDelegate, OptionSelectBoxDataSource {
+class GameScene: SKScene {
+
+    //, ColorPickerGridDataSource, ColorPickerGridDelegate {
     
-    var data: [AnyObject]!
+    var data: [String]!
     var images: [String]!
     var colors: [String]!
     var keyboard: Keyboard!
     
-    override init(size: CGSize) {
+    private var bottomY: CGFloat = 0
+    
+    private var textBoxTeamName: TextInputBox!
+    private var optionSelectLocation: OptionSelectBox!
+    private var textBoxStadium: TextInputBox!
+    private var imageSelectLogo: ImageSelectBox!
+    private var numberSelectQBNumberBox: NumberSelectBox!
+    private var textBoxQBName: TextInputBox!
+//    private var primaryColorPicker: ColorPickerGrid!
+//    private var secondaryColorPicker: ColorPickerGrid!
+//    private var skinToneColorPicker: ColorPickerGrid!
+//    private var numbersColorPicker: ColorPickerGrid!
+    
+    override func didMove(to view: SKView) {
         
-        super.init(size: size)
-            
-        data = ["Atlanta", "Baltimore", "Buffalo", "Charlotte", "Chicago", "Cincinatti", "Cleveland", "Dallas", "Denver", "Detroit", "Green Bay", "Houston", "Indianapolis", "Jacksonville", "Kansas City", "Miami", "Minneapolis", "Nashville", "New England", "New Orleans", "New York", "New York", "Oakland", "Philadelphia", "Phoenix", "Pittsburgh", "St Louis", "San Diego", "San Francisco", "Seattle", "Tampa", "Washington"]
-        images = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"]
-        colors = ["170E0C", "471001", "8C7458", "CFAE6C", "F1C086", "FFFFFF", "C3C3C3", "9EA9AC", "000000", "4B8ACC", "0083CE", "001D8C", "001149", "000D22", "24004F", "4B00C0", "923ADE", "FF1578", "D6B22A", "CFE000", "6FA600", "00BF00", "002E0A", "002E23", "003446", "008994", "00A5E1", "B21A42", "872641", "E50C21", "A60707", "CC3201", "FF5000", "FF8400", "FFBB00", "AD7805"]
+       setup()
+    }
+    
+    func setup() {
         
-        anchorPoint = CGPointMake(0.5, 0.5)
         keyboard = Keyboard(scene: self)
         keyboard.dataSource = self
         
-        let background: SKSpriteNode = SKSpriteNode(color: SKColor(red: 232 / 255.0, green: 232 / 255.0, blue: 224 / 255.0, alpha: 1.0), size: size)
-        background.size = size
-        background.zPosition = -1
-        addChild(background)
+        kGameWidth = self.size.width
+        kGameHeight = self.size.height
         
-        let textBoxName: TextInputBox = TextInputBox(keyboard: keyboard, size: CGSizeMake(300, 100))
-        textBoxName.defaultText = "NAME"
-        textBoxName.maxTextLength = 7
-        textBoxName.delegate = self
-        textBoxName.position = CGPointMake(-210, 400)
-        addChild(textBoxName)
+        if let ipadArea = self.childNode(withName: "ipad_area") as? SKSpriteNode {
+                        
+            bottomY = isIpad ? ipadArea.frame.minY : 0 - self.size.height / 2
+            
+            if isIpad {
+                keyboard?.keyboardYOffset = 0 - self.size.height / 2 - bottomY
+            }
+        }
         
-//        var numberSelectBox: NumberSelectBox = NumberSelectBox.numberSelectBoxWithSize(CGSizeMake(140, 100))
+        data = ["Atlanta", "Baltimore", "Buffalo", "Charlotte", "Chicago", "Cincinatti", "Cleveland", "Dallas", "Denver", "Detroit", "Green Bay", "Houston", "Indianapolis", "Jacksonville", "Kansas City", "Miami", "Minneapolis", "Nashville", "New England", "New Orleans", "New York", "New York", "Oakland", "Philadelphia", "Phoenix", "Pittsburgh", "St Louis", "San Diego", "San Francisco", "Seattle", "Tampa", "Washington"]
+        images = ["ace", "acorn", "apple", "cherry", "clover", "grapes", "heart", "jack", "jalapeno", "king", "lemon", "orange", "plum", "queen", "strawberry", "watermelon"]
+        colors = ["170E0C", "471001", "8C7458", "CFAE6C", "F1C086", "FFFFFF", "C3C3C3", "9EA9AC", "000000", "4B8ACC", "0083CE", "001D8C", "001149", "000D22", "24004F", "4B00C0", "923ADE", "FF1578", "D6B22A", "CFE000", "6FA600", "00BF00", "002E0A", "002E23", "003446", "008994", "00A5E1", "B21A42", "872641", "E50C21", "A60707", "CC3201", "FF5000", "FF8400", "FFBB00", "AD7805"]
+        
+        if let textBoxTeamNameNode = childNode(withName: "//textBoxTeamName") as? TextInputBox {
+
+            textBoxTeamNameNode.color = .clear
+            textBoxTeamName = textBoxTeamNameNode
+            textBoxTeamName.keyboard = keyboard!
+            textBoxTeamName.defaultText = "TEAM NAME"
+            textBoxTeamName.maxTextLength = 14
+            textBoxTeamName.delegate = self
+        }
+        
+        if let optionSelectLocationNode = childNode(withName: "//optionSelectLocation") as? OptionSelectBox {
+             
+            optionSelectLocationNode.color = .clear
+            optionSelectLocation = optionSelectLocationNode
+            optionSelectLocation.defaultText = "LOCATION"
+            optionSelectLocation.dataSource = self
+            optionSelectLocation.delegate = self
+        }
+        
+        if let textBoxStadiumNode = childNode(withName: "//textBoxStadium") as? TextInputBox {
+            
+            textBoxStadiumNode.color = .clear
+            textBoxStadium = textBoxStadiumNode
+            textBoxStadium.keyboard =  keyboard!
+            textBoxStadium.defaultText = "STADIUM NAME"
+            textBoxStadium.maxTextLength = 14
+            textBoxStadium.delegate = self
+        }
+        
+        if let imageSelectLogoNode = childNode(withName: "//imageSelectLogo") as? SKSpriteNode {
+            
+            imageSelectLogoNode.color = .clear
+            
+            //[ImageSelectBox imageSelectBoxWithSize:CGSizeMake(660, 200)];
+            imageSelectLogo = ImageSelectBox()//ImageSelectBox(coder: CGSize(width: CGFloat(660), height: CGFloat(200)))
+            imageSelectLogo.delegate = self
+            imageSelectLogo.dataSource = self
+            imageSelectLogo.position = imageSelectLogoNode.position//CGPoint(x: 0, y: CGFloat((logoLabel?.position.y)! - padding - (imageSelectLogo?.size.height)! / 2))
+            self.addChild(imageSelectLogo)
+        }
+        
+//        let textBoxName = TextInputBox(keyboard: keyboard, size: CGSize(width: 300, height: 100))
+//        textBoxName.defaultText = "NAME"
+//        textBoxName.maxTextLength = 7
+//        textBoxName.delegate = self
+//        textBoxName.position = CGPoint(x: -210, y: 400)
+//        addChild(textBoxName)
+//
+//        let numberSelectBox = NumberSelectBox(size: CGSize(width: 140, height: 100))
 //        numberSelectBox.maxTextLength = 2
 //        numberSelectBox.defaultText = "00"
 //        numberSelectBox.delegate = self
-//        numberSelectBox.position = CGPointMake(100, 400)
+//        numberSelectBox.position = CGPoint(x: 100, y: 400)
 //        addChild(numberSelectBox)
-//        
-//        var optionSelectBox: OptionSelectBox = OptionSelectBox.optionSelectBoxWithSize(CGSizeMake(520, 100))
+//
+//        let optionSelectBox = OptionSelectBox(size: CGSize(width: 520, height: 100))
 //        optionSelectBox.defaultText = "CITY"
 //        optionSelectBox.delegate = self
 //        optionSelectBox.dataSource = self
-//        optionSelectBox.position = CGPointMake(0, 200)
+//        optionSelectBox.position = CGPoint(x: 0, y: 220)
 //        addChild(optionSelectBox)
-        
-        let imageSelectBox: ImageSelectBox = ImageSelectBox()//CGSizeMake(660, 200))
-        imageSelectBox.delegate = self
-        imageSelectBox.dataSource = self
-        imageSelectBox.position = CGPointMake(0, 0)
-        addChild(imageSelectBox)
+//
+//        let imageSelectBox = ImageSelectBox()//CGSizeMake(660, 200))
+//        imageSelectBox.delegate = self
+//        imageSelectBox.dataSource = self
+//        imageSelectBox.position = CGPoint(x: 0, y: 0)
+//        addChild(imageSelectBox)
         
 //        var colorPickerGrid: ColorPickerGrid = ColorPickerGrid.colorPickerGridWithGridSize(CGSizeMake(9, 4), squareSize: 66)
 //        colorPickerGrid.delegate = self
@@ -69,10 +134,6 @@ class GameScene: SKScene, KeyboardDataSource, TextInputBoxDelegate, ImageSelectB
 //        optionSelectBox.initialText = "Buffalo"
 //        imageSelectBox.initialImage = "22"
 //        colorPickerGrid.initialColor = "8C7458"
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - ColorPickerGridDataSource
@@ -90,9 +151,12 @@ class GameScene: SKScene, KeyboardDataSource, TextInputBoxDelegate, ImageSelectB
 //    func colorPickerGridDidStartEditing(colorPickerGrid: ColorPickerGrid) {
 //        keyboard.dismiss()
 //    }
-    
-    //MARK: - ImageSelectDataSource
+}
+        
+//MARK: - ImageSelectBoxDataSource
 
+extension GameScene: ImageSelectBoxDataSource {
+        
     func numberOfImages(imageSelectBox: ImageSelectBox) -> Int {
         return images.count
     }
@@ -101,54 +165,78 @@ class GameScene: SKScene, KeyboardDataSource, TextInputBoxDelegate, ImageSelectB
         return images
     }
     
-    func imageSelectBox(imageSelectBox: ImageSelectBox, selectionAtIndex index: Int) -> String {
+    func imageSelectBox(imageSelectBox: ImageSelectBox, index: Int) -> String {
         return images[index]
     }
-    
-    //MARK: - ImageSelectDelegate
-    
+}
+        
+//MARK: - ImageSelectBoxDelegate
+
+extension GameScene: ImageSelectBoxDelegate {
+         
     func imageSelectBoxDidStartEditing(imageSelectBox: ImageSelectBox) {
         keyboard.dismiss()
     }
+}
+        
+//MARK: - OptionSelectBoxDataSource
+
+extension GameScene: OptionSelectBoxDataSource {
     
-    //MARK: - OptionSelectDataSource
+    func selectionAtIndex(optionSelectBox: OptionSelectBox, index: Int) -> String {
+        return data[index]
+    }
     
-//    func numberOfItems(optionSelectBox: OptionSelectBox) -> Int {
-//        return data.count
-//    }
-//    
-//    func allItems(optionSelectBox: OptionSelectBox) -> [AnyObject] {
-//        return data
-//    }
-//    
-//    func optionSelectBox(optionSelectBox: OptionSelectBox, selectionAtIndex index: Int) -> String {
-//        return data[index]
-//    }
+        
+    func numberOfItems(optionSelectBox: OptionSelectBox) -> Int {
+        return data.count
+    }
     
-    //MARK: - OptionSelectDelegate
+    func allItems(optionSelectBox: OptionSelectBox) -> [String] {
+        return data
+    } 
+}
+        
+//MARK: - OptionSelectBoxDelegate
+
+extension GameScene: OptionSelectBoxDelegate {
+        
+    func optionSelectBoxDidStartEditing(optionSelectBox: OptionSelectBox) {
+        keyboard.dismiss()
+    }
+}
+
+// MARK: - KeyboardDelegate
+
+extension GameScene: KeyboardDelegate {
     
-//    func optionSelectBoxDidStartEditing(optionSelectBox: OptionSelectBox) {
-//        keyboard.dismiss()
-//    }
+    func keyboard(keyboard keyboardNode: Keyboard, didSelectCharacter: String) {}
+    func keyboardDidHitDeleteKey(keyboard: Keyboard) {}
+    func keyboardDidHitEnterKey() {}
+}
+
+//MARK: - KeyboardDataSource
+
+extension GameScene: KeyboardDataSource {
     
-    //MARK: - KeyboardDataSource
-    
-    func numberOfSectionsInKeyboard(keyboard: Keyboard) -> Int {
+    func numberOfSections(keyboard: Keyboard) -> Int {
         return Keyboard.qwertyAlphabetKeys().count
     }
     
-    func keyboard(keyboard: Keyboard, numberOfItemsInSection section: Int) -> Int {
+    func numberOfItemsInSection(keyboard: Keyboard, section: Int) -> Int {
         return Keyboard.qwertyAlphabetKeys()[section].count
     }
     
-    func keyboard(keyboard: Keyboard, characterAtIndexPath indexPath: NSIndexPath) -> String {
-        
-        return Keyboard.qwertyAlphabetKeys()[indexPath.section][indexPath.row] as! String
+    func characterAtIndexPath(keyboard: Keyboard, indexPath: IndexPath) -> String {
+        return Keyboard.qwertyAlphabetKeys()[indexPath.section][indexPath.row]
     }
-    
-    //MARK: - TextInputBoxDelegate
-    
-    func textInputNodeDidStartEditing(textInputBox: TextInputBox) {
+}
+        
+//MARK: - TextInputBoxDelegate
+
+extension GameScene: TextInputBoxDelegate {
+        
+    func textInputNodeDidStartEditing(textInputNode textInputBox: TextInputBox) {
         
         for node: SKNode in children {
             
@@ -165,4 +253,11 @@ class GameScene: SKScene, KeyboardDataSource, TextInputBoxDelegate, ImageSelectB
     func textInputNodeShouldClear(textInputNode: TextInputBox) -> Bool {
         return false
     }
+}
+    
+//MARK: - NumberSelectBoxDelegate
+
+extension GameScene: NumberSelectBoxDelegate {
+        
+    func numberSelectBoxDidStartEditing(numberSelectBox: NumberSelectBox) {}
 }

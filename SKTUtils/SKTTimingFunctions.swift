@@ -205,7 +205,7 @@ public func SKTTimingFunctionExtremeBackEaseInOut(t: CGFloat) -> CGFloat {
 }
 
 public func SKTTimingFunctionBounceEaseIn(t: CGFloat) -> CGFloat {
-  return 1.0 - SKTTimingFunctionBounceEaseOut(1.0 - t)
+    return 1.0 - SKTTimingFunctionBounceEaseOut(t: 1.0 - t)
 }
 
 public func SKTTimingFunctionBounceEaseOut(t: CGFloat) -> CGFloat {
@@ -225,9 +225,9 @@ public func SKTTimingFunctionBounceEaseOut(t: CGFloat) -> CGFloat {
 
 public func SKTTimingFunctionBounceEaseInOut(t: CGFloat) -> CGFloat {
   if t < 0.5 {
-    return 0.5 * SKTTimingFunctionBounceEaseIn(t * 2.0)
+    return 0.5 * SKTTimingFunctionBounceEaseIn(t: t * 2.0)
   } else {
-    return 0.5 * SKTTimingFunctionBounceEaseOut(t * 2.0 - 1.0) + 0.5
+    return 0.5 * SKTTimingFunctionBounceEaseOut(t: t * 2.0 - 1.0) + 0.5
   }
 }
 
