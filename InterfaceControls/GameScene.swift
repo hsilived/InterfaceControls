@@ -14,7 +14,7 @@ class GameScene: SKScene {
 
     let defaults: AppUserDefaults = AppUserDefaults()
     
-    var data: [String]!
+    var locations: [String]!
     var images: [String]!
     private var colors: [String]!
     private var puppyTones = [String]()
@@ -60,18 +60,14 @@ class GameScene: SKScene {
             
             self.size = CGSize(width: kGameWidth, height: kGameHeight)
             
-            bottomY = isIpad ? iPadArea.frame.minY : isIphoneX ? iPhoneXArea!.frame.minY + 100 : iPhoneArea!.frame.minY//isIpad ? iPadArea.frame.minY : 0 - self.size.height / 2
-            
-            //if isIpad {
-                
-            //}
+            bottomY = isIpad ? iPadArea.frame.minY : isIphoneX ? iPhoneXArea!.frame.minY + 100 : iPhoneArea!.frame.minY
         }
         
         keyboard = Keyboard(scene: self)
         keyboard.dataSource = self
         keyboard?.keyboardYOffset = 0 - self.size.height / 2 - bottomY
         
-        data = ["Atlanta", "Baltimore", "Buffalo", "Charlotte", "Chicago", "Cincinatti", "Cleveland", "Dallas", "Denver", "Detroit", "Green Bay", "Houston", "Indianapolis", "Jacksonville", "Kansas City", "Miami", "Minneapolis", "Nashville", "New England", "New Orleans", "New York", "New York", "Oakland", "Philadelphia", "Phoenix", "Pittsburgh", "St Louis", "San Diego", "San Francisco", "Seattle", "Tampa", "Washington"]
+        locations = ["Atlanta", "Baltimore", "Buffalo", "Charlotte", "Chicago", "Cincinatti", "Cleveland", "Dallas", "Denver", "Detroit", "Green Bay", "Houston", "Indianapolis", "Jacksonville", "Kansas City", "Miami", "Minneapolis", "Nashville", "New England", "New Orleans", "New York", "New York", "Oakland", "Philadelphia", "Phoenix", "Pittsburgh", "St Louis", "San Diego", "San Francisco", "Seattle", "Tampa", "Washington"]
         images = ["apple", "cherry", "grapes", "jalapeno", "lemon", "orange", "plum", "strawberry", "watermelon"]//["ace", "acorn", "apple", "cherry", "clover", "grapes", "heart", "jack", "jalapeno", "king", "lemon", "orange", "plum", "queen", "strawberry", "watermelon"]
         colors = ["170E0C", "471001", "8C7458", "CFAE6C", "F1C086", "FFFFFF", "C3C3C3", "9EA9AC", "000000", "4B8ACC", "0083CE", "001D8C", "001149", "000D22", "24004F", "4B00C0", "923ADE", "FF1578", "D6B22A", "CFE000", "6FA600", "00BF00", "002E0A", "002E23", "003446", "008994", "00A5E1", "B21A42", "872641", "E50C21", "A60707", "CC3201", "FF5000", "FF8400", "FFBB00", "AD7805"]
         puppyTones = ["000D22", "88654F", "E39555", "E2C399", "D28660", "EEEEEE", "DA955D", "A3572D", "CAAA91"]
@@ -325,16 +321,16 @@ extension GameScene: ImageSelectBoxDelegate {
 extension GameScene: OptionSelectBoxDataSource {
     
     func selectionAtIndex(optionSelectBox: OptionSelectBox, index: Int) -> String {
-        return data[index]
+        return locations[index]
     }
     
         
     func numberOfItems(optionSelectBox: OptionSelectBox) -> Int {
-        return data.count
+        return locations.count
     }
     
     func allItems(optionSelectBox: OptionSelectBox) -> [String] {
-        return data
+        return locations
     } 
 }
         

@@ -28,104 +28,136 @@ Using the a custom keyboard may not be for everyone, but if you don't want to in
 
 ## SpriteKit Interface Controls Install Instructions
 
-copy the Interface Controls folder into your project
+copy the contents of InterfaceControls folder into your project with the exception of GameScene and GameViewController (You are welcome to use these as an example or starter but most likely your game will already have each of these files already).
 
-Your scene must conform to SKPhysicsContactDelegate
+##### including the keyboard in your scene #####
 
-    class GameScene: SKScene, SKPhysicsContactDelegate {
+Create the keyboard variable and instatiate the Keyboard in the didMove func. Our example uses 3 children created in the scene editor to control sizes of iPad, iPhone and iPhoneX. You can use whatever means you want to get thoses sizes or use these. The point of these objects are to control where the keyboard sits at the bottom of the screen.
 
-        private var spinWheelOpen = false
+    class GameScene: SKScene {
+
+        var keyboard: Keyboard!
         
         override func didMove(to view: SKView) {
-            self.physicsWorld.contactDelegate = self
+            
+           setup()
         }
-    }
-
-Add the following snippets to your scene to open a copy of the Interface Controls 
-
-    func displaySpinWheel() {
-    
-        //load the prize info from a plist in the resources folder
-        Prizes.loadPrizes(file: "Prizes")
         
-        if let spinWheel = SKReferenceNode(fileNamed: "SpinWheel")!.getBaseChildNode() as? SpinWheel {
+        func setup() {
             
-            spinWheel.removeFromParent()
-            self.spinWheel = spinWheel
-            spinWheel.zPosition = 100
-            //you can optionally set whether or not the center hub acts as a button here or in settings
-            //spinWheel.hubSpinsWheel = false
-            //you can optionally set the direction the wheel spins here or in settings (default is clockwise)
-            //spinWheel.spinDirection = .counterClockwise
-            spinWheel.spinWheelDelegate = self
-            addChild(spinWheel)
+            kGameWidth = self.size.width
+            kGameHeight = self.size.height
             
-            spinWheel.initPhysicsJoints()
+            if let iPadArea = self.childNode(withName: "ipad_area") as? SKSpriteNode {
+                       
+                let iPhoneArea = self.childNode(withName: "iphone_area") as? SKSpriteNode
+                let iPhoneXArea = self.childNode(withName: "iphone_x_area") as? SKSpriteNode
+                
+                print("isIphoneX \(isIphoneX)")
+                kGameWidth = isIpad ? iPadArea.frame.size.width : isIphoneX ? iPhoneXArea!.frame.size.width : iPhoneArea!.frame.size.width
+                kGameHeight = isIpad ? iPadArea.frame.size.height : isIphoneX ? iPhoneXArea!.frame.size.height : iPhoneArea!.frame.size.height
+                
+                self.size = CGSize(width: kGameWidth, height: kGameHeight)
+                
+                bottomY = isIpad ? iPadArea.frame.minY : isIphoneX ? iPhoneXArea!.frame.minY + 100 : iPhoneArea!.frame.minY
+            }
             
-            spinWheelOpen = true
+            keyboard = Keyboard(scene: self)
+            keyboard.dataSource = self
+            keyboard?.keyboardYOffset = 0 - self.size.height / 2 - bottomY
+        }    
+    }
+
+Your scene will need to conform to the Keyboard DataSource
+
+    //MARK: - KeyboardDataSource
+
+    extension GameScene: KeyboardDataSource {
+        
+        func numberOfSections(keyboard: Keyboard) -> Int {
+            return Keyboard.qwertyAlphabetKeys().count
+        }
+        
+        func numberOfItemsInSection(keyboard: Keyboard, section: Int) -> Int {
+            return Keyboard.qwertyAlphabetKeys()[section].count
+        }
+        
+        func characterAtIndexPath(keyboard: Keyboard, indexPath: IndexPath) -> String {
+            return Keyboard.qwertyAlphabetKeys()[indexPath.section][indexPath.row]
         }
     }
-    
-    //sends the physics contacts to the spinwheel to handle
-    func didBegin(_ contact: SKPhysicsContact) {
-    
-        if spinWheelOpen {
-            spinWheel.didBegin(contact)
+
+For each of the controls that you want to use in your scene you will have to ensure that the scene conforms to the controls Delegate and DataSource Protocols
+
+    // MARK: - ColorPickerGridDataSource
+
+    extension GameScene: ColorPickerGridDataSource {
+
+        func numberOfColors(colorPickerGrid: ColorPickerGrid) -> Int {
+            
+            if (colorPickerGrid.name == "numbers") {
+                return colors.count
+            }
+            else {
+                return colors.count
+            }
+        }
+
+        func colorPickerGrid(colorPickerGrid: ColorPickerGrid, selectionAtIndex index: Int) -> String {
+            
+            if (colorPickerGrid.name == "numbers") {
+                return colors[index]
+            }
+            else if (colorPickerGrid.name == "puppyTones") {
+                return puppyTones[index]
+            }
+            else {
+                return colors[index]
+            }
         }
     }
-    
-    //sends the updates to the spinwheel to update inside the class
-    override func update(_ currentTime: TimeInterval) {
-    
-        if spinWheelOpen {
-            spinWheel.updateWheel(currentTime)
+
+    // MARK: ColorPickerGridDelegate
+
+    extension GameScene: ColorPickerGridDelegate {
+
+        func colorPickerGridDidStartEditing(colorPickerGrid: ColorPickerGrid) {
+            resetEditingOnAllTextBoxes()
+            keyboard?.dismiss()
         }
     }
+
+Some controls require you to setup or supply an array of data at load time
+
+    var locations: [String]!
+    private var colors: [String]!
+    
+    locations = ["Atlanta", "Baltimore", "Buffalo", "Charlotte", "Chicago", "Cincinatti", "Cleveland", "Dallas", "Denver", "Detroit", "Green Bay", "Houston", "Indianapolis", "Jacksonville", "Kansas City", "Miami", "Minneapolis", "Nashville", "New England", "New Orleans", "New York", "New York", "Oakland", "Philadelphia", "Phoenix", "Pittsburgh", "St Louis", "San Diego", "San Francisco", "Seattle", "Tampa", "Washington"]
+    colors = ["170E0C", "471001", "8C7458", "CFAE6C", "F1C086", "FFFFFF", "C3C3C3", "9EA9AC", "000000", "4B8ACC", "0083CE", "001D8C", "001149", "000D22", "24004F", "4B00C0", "923ADE", "FF1578", "D6B22A", "CFE000", "6FA600", "00BF00", "002E0A", "002E23", "003446", "008994", "00A5E1", "B21A42", "872641", "E50C21", "A60707", "CC3201", "FF5000", "FF8400", "FFBB00", "AD7805"]
 
 ## Settings.swift
 
-Inside of Settings.swift you can change the font or how the Spin Wheel is interacted with. Settings also has the physics category declarations. If you have multiple wheels that you want different settings for you can override each setting on each instance of SpinWheel (see the init above)
+Inside of Settings.swift you can change the fonts, colors and text on the keyboard
 
-    let kGameFont: String = "Context Rounded Black SSi"
-
-    //if you don't want the center hub to act like a spin button change this to false
-    var kHubSpinsWheel = true
-
-    //if you don't want the user to be able to swipe to spin the wheel change this to false
-    var kCanSwipeToSpinWheel = true
-    
-    //when the wheel is almost stopped and hits a peg it will shimmy between the pegs if this is set to true
-    var kWheelCanSpinBackwards = false
-
-## To Change values on the Interface Controls
-
-- If you want to change the number of slots or sizes of the slots change the wheel picture in the SpinWheel.sks file.
-
-- To designate where each section of the wheel starts and ends you must have a "peg"  
-    
-- If you want additional pegs inside a section but DON'T want to start a new section you must change the class of those pegs to DummyPeg inside of the editor
-    
-    - prizeImage is an empty sprite on the wheel that can be dragged around to control exactly where each sections icon will appear when rendered. You do not need to dot his for each section just once will apply to all sections
-    
-    - prizeText is a label on the wheel in the editor, change the properties of this label will change the text for all sections of your wheel when rendered
-    
-![Instructions](info.png)
-    
-To change the values for each piece of the wheel edit, add or delete from the array of dictionaries in the Prizes.plist file inside of the Resources folder.
-
-    title = string that is diplayed if you win that item
-    image = image name for icon in wheel section (in string format)
-    amount = Int value associated with prize (example if the bulk of your prizes are coins, they can all have the same image but would have different amounts 100, 200, 500)
-    
-## To receive winnings
-    
-    Inside of SpinWheel.swift in the closeWinDialog() func a call will be sent out to the SpinWheel delegate which is probably going to be your scene and you can handle this anyway you want from your scene. Save the winnings in UserDefaults, add to their score, etc.
-
-    self.spinWheelDelegate?.won(text: wonPrizeTitle, amount: wonPrizeAmount)
+    //TextInputBox and OptionSelectBox Constants
+    let kKeyDelete: String = "delete"
+    let kKeyEnter: String = "done"
+    let kKeySpace: String = "space"
+    let kKeyBlank: String = "blank"
+    let kKeyClose: String = "close"
+    let kOffsetPadding: String = "pad"
+    let kOffsetSize: Int = 20
+    let kSpaceBetweenKeys: CGFloat = 20
+    let kAmountToMoveCaratForSpace: CGFloat = 18
+    let kTextBoxFontSize: CGFloat = 98.0
+    let kTextBoxFont: String = "Helvetica"
+    let kDefaultTextColor = SKColor(white: 0.4, alpha: 1.0)
+    let kTextColor = SKColor(white: 0.2, alpha: 1.0)
+    let kTextLabelColor = SKColor(white: 0.9, alpha: 1.0)
 
         
 ## Feedback
-I am happy to provide the SpriteKit Prize Wheel, and example code free of charge without any warranty or guarantee (see license below for more info). If there is a feature missing or you would like added please email us at dev@orangethinkbox.com
+I am happy to provide the SpriteKit INterface Controls, and example code free of charge without any warranty or guarantee (see license below for more info). If there is a feature missing or you would like added please email us at dev@orangethinkbox.com
 
 If you use this code or get inspired by the idea give us a star ;) and let us know, I would love to hear about it.
     
@@ -138,4 +170,4 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# Happy Spinning!
+# Happy SpriteKit Gaming!
