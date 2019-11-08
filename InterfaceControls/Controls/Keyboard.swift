@@ -33,14 +33,14 @@ class Keyboard: SKSpriteNode {
     }
     
     var delegate: KeyboardDelegate!
-    var presented: Bool = false
+    var presented = false
     var currentScene: SKScene!
     var keyContainer: SKSpriteNode?
     var keyboardYOffset: CGFloat = 0
     
     init(scene: SKScene) {
 
-        super.init(texture: nil ,color: .clear, size:CGSize(width: scene.size.width, height: 100))
+        super.init(texture: nil ,color: .clear, size: CGSize(width: scene.size.width, height: 100))
 
         currentScene = scene
         zPosition = 50000000
@@ -81,7 +81,7 @@ class Keyboard: SKSpriteNode {
 //    }
 
     func marginInsets() -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
+        return UIEdgeInsets(top: 20.0, left: 5.0, bottom: 20.0, right: 5.0)
     }
 
     func keySize() -> CGSize {
@@ -116,7 +116,7 @@ class Keyboard: SKSpriteNode {
 
     func createKeyboard() {
 
-        if (keyContainer != nil) { return }
+        guard keyContainer == nil else { return }
 
         //82 for ipad
         let keyWidth: CGFloat = ((size.width - marginInsets().left - marginInsets().right) - (kSpaceBetweenKeys * 10)) / 11
@@ -125,11 +125,17 @@ class Keyboard: SKSpriteNode {
         let contentNodeSize: CGSize = CGSize(width: size.width, height: height)
         size = contentNodeSize
         
-        keyContainer = SKSpriteNode(color: SKColor(white: 0.6, alpha: 0.8), size: contentNodeSize)
+        keyContainer = SKSpriteNode(color: SKColor(white: 0.7, alpha: 0.8), size: contentNodeSize)
         keyContainer!.position = CGPoint(x: 0, y: (0 - self.size.height / 2) + keyContainer!.size.height / 2)
         keyContainer!.zPosition = 1
         keyContainer!.isUserInteractionEnabled = true
         addChild(keyContainer!)
+        
+        //this is basically oly for phones without a home button. just adds a little white space to the bottom of the keyboard
+        let bottomBuffer = SKSpriteNode(color: SKColor(white: 0.7, alpha: 0.8), size: CGSize(width: contentNodeSize.width, height: 100))
+        bottomBuffer.position = CGPoint(x: 0, y: keyContainer!.frame.minY - 50)
+        bottomBuffer.zPosition = 1
+        addChild(bottomBuffer)
         
         let initialKeyNodePosition: CGPoint = CGPoint(x: (0 - size.width / 2) + marginInsets().left, y: keyContainer!.size.height / 2 - keyWidth / 2 - kSpaceBetweenKeys - marginInsets().top)
         

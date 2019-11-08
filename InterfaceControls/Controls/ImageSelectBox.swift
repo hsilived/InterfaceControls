@@ -18,32 +18,32 @@ class ImageSelectionButton: SKSpriteNode {
     weak var delegate: ImageSelectionButtonDelegate?
     var imageParent: ImageSelectBox?
     var number: Int = 0
-    var selected: Bool = false {
-        
-        didSet {
-            
-            if selected {
-
-                zPosition = 100
-                let move: SKAction = SKAction.scale(to: 1.5, duration: 0.4)
-                move.timingMode = .easeInEaseOut
-                run(move, withKey: "select")
-            }
-            else {
-
-                removeAction(forKey: "select")
-                
-                zPosition = 1
-                let move: SKAction = SKAction.scale(to: 1.0, duration: 0.15)
-                move.timingMode = .easeInEaseOut
-                run(move)
-            }
-        }
-    }
+//    var isSelected: Bool = false {
+//        
+//        didSet {
+//            
+//            if isSelected {
+//
+//                zPosition = 100
+//                let move = SKAction.scale(to: 1.5, duration: 0.4)
+//                move.timingMode = .easeInEaseOut
+//                run(move, withKey: "select")
+//            }
+//            else {
+//
+//                removeAction(forKey: "select")
+//                
+//                zPosition = 1
+//                let move = SKAction.scale(to: 1.0, duration: 0.15)
+//                move.timingMode = .easeInEaseOut
+//                run(move)
+//            }
+//        }
+//    }
     
     init(imageName image: String, size: CGSize) {
         
-        super.init(texture: nil ,color: .clear, size:size)
+        super.init(texture: nil, color: .clear, size: size)
         
         texture = SKTexture(imageNamed: image)
         
@@ -51,13 +51,17 @@ class ImageSelectionButton: SKSpriteNode {
         zPosition = 2
         isUserInteractionEnabled = true
         name = image
+        isPaused = false
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK:- Touch events
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent!)  {
+        
         if imageParent != nil {
             imageParent!.touchesBegan(touches, with: event)
         }
@@ -74,6 +78,7 @@ class ImageSelectionButton: SKSpriteNode {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent!) {
         
         if imageParent != nil {
+            
             imageParent!.touchesEnded(touches, with: event)
             
             print("imageParent!.moveAmtX \(imageParent!.moveAmtX)")
@@ -81,6 +86,8 @@ class ImageSelectionButton: SKSpriteNode {
                 return
             }
         }
+        
+//        selected = true
         
         delegate!.ImageWasSelected(imageSelectionButton: self)
     }
@@ -93,15 +100,15 @@ protocol ImageSelectBoxDataSource {
     func imageSelectBox(imageSelectBox: ImageSelectBox, index: Int) -> String
 }
 
-protocol ImageSelectBoxDelegate {
+protocol ImageSelectBoxDelegate: NSObject {
     
     func imageSelectBoxDidStartEditing(imageSelectBox: ImageSelectBox)
 }
 
-class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
+class ImageSelectBox: SKSpriteNode {
     
     var selectedImage: ImageSelectionButton?
-    var image: String = ""
+    var image = ""
     var initialImage: String = "" {
         
         didSet {
@@ -114,9 +121,6 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
                     
                     self.image = initialImage
                     self.swipeLeft(power: power)
-                    //currentImageIndex += power + 1
-                    //imageContainer!.run(SKAction.moveTo(x: -(CGFloat(currentImageIndex) * squareWidth + squareWidth / 2), duration: 0.0))
-                    //self.adjustPositionLabel()
                 }
                 else {
                     power += 1
@@ -136,43 +140,45 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         }
     }
     
-    var delegate: ImageSelectBoxDelegate?
+    weak var delegate: ImageSelectBoxDelegate?
     var data: [String] = [String]()
     
-    var buttonSound: SKAction = SKAction()
-    var textLabel: SKLabelNode = SKLabelNode()
-    var caratSymbol: SKSpriteNode = SKSpriteNode()
-    var blank: Bool = false
-    var selections: [String] = [String]()
+    private var buttonSound: SKAction!
+    private var textLabel: SKLabelNode!
+    private var caratSymbol: SKSpriteNode!
+    private var imageContainer: SKSpriteNode!
     
-    var imageContainer: SKSpriteNode?
-    var currentSelectionIndex: Int = 0
-    var imageCount: Int = 0
-    var currentImageIndex: Int = 0
-    var squareSize: CGFloat = 0
-    var padding: CGFloat = 0
-    var squareWidth: CGFloat = 0
-    var squareHeight: CGFloat = 0
-    var defaultPosition: CGFloat = 0
-    var numberOfImagesToDisplay: Int = 0
-    var maskWidth: CGFloat = 0
-    var maskHeight: CGFloat = 0
-    var maskControl: Bool = true
-    var minimum_detect_distance: CGFloat = 0
+    private var blank = false
+    private var maskControl = true
+    private var selections = [String]()
     
-    var initialPosition: CGPoint = CGPoint.zero
-    var initialTouch: CGPoint = CGPoint.zero
+    private var currentSelectionIndex: Int = 0
+    private var imageCount: Int = 0
+    private var currentImageIndex: Int = 0
+    private var numberOfImagesToDisplay: Int = 0
+    
+    private var squareSize: CGFloat = 0
+    private var padding: CGFloat = 0
+    private var squareWidth: CGFloat = 0
+    private var squareHeight: CGFloat = 0
+    private var defaultPosition: CGFloat = 0
+    private var maskWidth: CGFloat = 0
+    private var maskHeight: CGFloat = 0
+    private var minimum_detect_distance: CGFloat = 0
     var moveAmtX: CGFloat = 0
     var moveAmtY: CGFloat = 0
     
-    var images: [ImageSelectionButton] = [ImageSelectionButton]()
+    private var initialPosition = CGPoint.zero
+    private var initialTouch = CGPoint.zero
+        
+    private var images = [ImageSelectionButton]()
     
     //MARK: - Lazy Instantiations
     
     private lazy var positionLabel: SKLabelNode = {
         
         let posLabel = SKLabelNode(fontNamed: kMiscFont)
-        posLabel.fontColor = kDefaultTextColor
+        posLabel.fontColor = kTextLabelColor
         posLabel.fontSize = 60
         posLabel.position = CGPoint(x: self.size.width / 2 - 60, y: self.size.height / 2 + 40)
         posLabel.verticalAlignmentMode = .center
@@ -207,7 +213,7 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         blank = true
         
-        let outside: SKSpriteNode = SKSpriteNode(imageNamed: "imagebox")
+        let outside = SKSpriteNode(imageNamed: "imagebox")
         let insetX: CGFloat = 20
         let insetY: CGFloat = 20
         let boxWidth = outside.size.width
@@ -218,7 +224,7 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         outside.zPosition = 10
         addChild(outside)
         
-        let currentSelection: SKSpriteNode = SKSpriteNode(imageNamed: "image_selector_box")
+        let currentSelection = SKSpriteNode(imageNamed: "image_selector_box")
         currentSelection.position = CGPoint(x: 0, y: self.size.height / 2)
         currentSelection.setScale(2.0)
         currentSelection.zPosition = 11
@@ -258,13 +264,13 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         var lastWidth: CGFloat = 0
         
         imageContainer = SKSpriteNode(color: .clear, size: CGSize(width: self.size.width, height: self.size.height))
-        imageContainer!.anchorPoint = CGPoint(x: 0, y: 0.5)
-        imageContainer!.zPosition = 20
-        imageContainer!.position = CGPoint(x: defaultPosition, y: 0)
+        imageContainer.anchorPoint = CGPoint(x: 0, y: 0.5)
+        imageContainer.zPosition = 20
+        imageContainer.position = CGPoint(x: defaultPosition, y: 0)
 
         if maskControl {
             
-            let mask: SKSpriteNode = SKSpriteNode(color: .black, size: CGSize(width: maskWidth, height: maskHeight))
+            let mask = SKSpriteNode(color: .black, size: CGSize(width: maskWidth, height: maskHeight))
             mask.zPosition = 4800
             
             let cropNode: SKCropNode = SKCropNode()
@@ -279,7 +285,7 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         
         for imageIndex in 0..<imageCount {
             
-            let imageBlock: ImageSelectionButton = ImageSelectionButton(imageName: self.dataSource!.imageSelectBox(imageSelectBox: self, index: imageIndex), size: CGSize(width: squareSize, height: squareSize))
+            let imageBlock = ImageSelectionButton(imageName: self.dataSource!.imageSelectBox(imageSelectBox: self, index: imageIndex), size: CGSize(width: squareSize, height: squareSize))
             imageBlock.number = imageIndex
             imageBlock.position = CGPoint(x: lastPosX + squareSize / 2, y: 0)
             imageBlock.delegate = self
@@ -296,37 +302,27 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         
         //load first item name
         selectedImage = images[0]
-        selectedImage?.selected = true
+//        selectedImage?.isSelected = true
     }
-    
-    func ImageWasSelected(imageSelectionButton: ImageSelectionButton) {
         
-        //selectedImageIndex = imageSelectionButton.number
-        //print("focusOnSelection - avatarBuilderCell.index \(avatarBuilderCell.index)")
-        //print("currentImageIndex \(currentImageIndex)")
-        if imageSelectionButton.number > currentImageIndex {
-            swipeLeft(power: imageSelectionButton.number - currentImageIndex)
-        }
-        else if imageSelectionButton.number < currentImageIndex {
-            swipeRight(power: currentImageIndex - imageSelectionButton.number)
-        }
+    func resetSelectedImage() {
+    
+        currentSelectionIndex = 0
+        currentImageIndex = 0
+        self.positionLabel.text = "\(currentImageIndex + 1)/\(imageCount)"
+        
+        resetSlider()
     }
     
     func swipeLeft(power: Int) {
         
         let imageCount = imageCounter()
         
-        print("starting on Image \(currentImageIndex)")
-        print("power \(power)")
         currentImageIndex = currentImageIndex + power > imageCount - 1 ? imageCount - 1 : currentImageIndex + power
         currentImageIndex = currentImageIndex < 0 ? 0 : currentImageIndex
         currentImageIndex = currentImageIndex >= imageCount ? imageCount - 1 : currentImageIndex
-        
-        print("moving to Image \(currentImageIndex)")
-        print("squareWidth \(squareWidth)")
-        print("padding \(padding)")
+
         self.xMoveActions(moveTo: -(CGFloat(currentImageIndex) * (squareSize + padding) + squareSize / 2))
-        
         self.adjustPositionLabel()
         self.image = self.dataSource!.imageSelectBox(imageSelectBox: self, index: currentImageIndex)
     }
@@ -367,13 +363,10 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
     }
     
     func moveImagesLeft() {
-        
-        //print(cellHeight + padding)
-        //xMoveActionsBy(squareWidth / 1.5)
-        
+
         if currentSelectionIndex - 1 >= 0 {
             
-            selectedImage?.selected = false
+//            selectedImage?.selected = false
             
             let dist = images[currentSelectionIndex].position.x - images[currentSelectionIndex - 1].position.x
             
@@ -382,7 +375,7 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
             currentSelectionIndex -= 1
             
             selectedImage = images[currentSelectionIndex]
-            selectedImage?.selected = true
+//            selectedImage?.isSelected = true
         }
         else {
             xMoveActionsBy(moveBy: squareWidth / 1.5)
@@ -390,12 +383,10 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
     }
     
     func moveImagesRight() {
-        
-        //xMoveActionsBy(-squareWidth / 1.5)
-        
+
         if currentSelectionIndex + 1 < images.count {
             
-            selectedImage?.selected = false
+//            selectedImage?.isSelected = false
             
             let dist = images[currentSelectionIndex + 1].position.x - images[currentSelectionIndex].position.x
             
@@ -405,7 +396,7 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
             currentSelectionIndex += 1
 
             selectedImage = images[currentSelectionIndex]
-            selectedImage?.selected = true
+//            selectedImage?.isSelected = true
         }
         else {
             xMoveActionsBy(moveBy: -squareWidth / 1.5)
@@ -420,12 +411,6 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         imageContainer!.run(move, completion: {
             self.checkForResetttingSlider()
         })
-        
-//        let dropBounce: SKTMoveEffect = SKTMoveEffect(node: imageContainer!, duration: 0.5, startPosition: imageContainer!.position, endPosition: CGPoint(x: imageContainer!.position.x + moveBy, y: imageContainer!.position.y))
-//        dropBounce.timingFunction = SKTTimingFunctionExtremeBackEaseOut
-//        //move.timingMode = .easeIn;
-//        let move: SKAction = SKAction.actionWithEffect(dropBounce)
-//        imageContainer!.run(move)
     }
     
     func xMoveActions(moveTo: CGFloat) {
@@ -441,13 +426,13 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
         }
         //print("xMoveActions currentImageIndex \(currentImageIndex)")
         //print("type \(type)")
-        imageContainer!.run(move, completion: {
+        imageContainer!.run(move) {
             
             if self.currentImageIndex < 0 {
                 self.currentImageIndex = 0
             }
             self.selectedImage = self.images[self.currentImageIndex]
-        } )
+        }
         //imageContainer!.run(move)
     }
     
@@ -455,7 +440,7 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        let touch: UITouch = touches.first!
+        let touch = touches.first!
         initialTouch = touch.location(in: self.scene!.view!)
         moveAmtY = 0
         moveAmtX = 0
@@ -464,14 +449,10 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        let touch: UITouch = touches.first!
-        let movingPoint: CGPoint = touch.location(in: self.scene!.view!)
+        let touch = touches.first!
+        let movingPoint = touch.location(in: self.scene!.view!)
         moveAmtX = movingPoint.x - initialTouch.x
         moveAmtY = movingPoint.y - initialTouch.y
-        
- //       if type == .colors {
- //           imageContainer!.position = CGPoint(x: initialPosition.x + moveAmtX, y: initialPosition.y)
- //       }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -519,16 +500,26 @@ class ImageSelectBox: SKSpriteNode, ImageSelectionButtonDelegate {
             move.timingMode = .easeOut
             imageContainer!.run(move)
         }
+    }
+}
+
+//MARK:- ImageSelectionButtonDelegate
+
+extension ImageSelectBox: ImageSelectionButtonDelegate {
+    
+    func ImageWasSelected(imageSelectionButton: ImageSelectionButton) {
         
-//        if selectedImage != nil {
-//
-//            if currentImage > selectedImage!.number {
-//                swipeRight(currentImage - selectedImage!.number - 1)
-//            }
-//            else {
-//                swipeLeft(selectedImage!.number - currentImage - 1)
-//            }
-//        }
+        self.run(buttonSound)
+        
+        //selectedImageIndex = imageSelectionButton.number
+        //print("focusOnSelection - avatarBuilderCell.index \(avatarBuilderCell.index)")
+        //print("currentImageIndex \(currentImageIndex)")
+        if imageSelectionButton.number > currentImageIndex {
+            swipeLeft(power: imageSelectionButton.number - currentImageIndex)
+        }
+        else if imageSelectionButton.number < currentImageIndex {
+            swipeRight(power: currentImageIndex - imageSelectionButton.number)
+        }
     }
 }
 

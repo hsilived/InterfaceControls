@@ -72,7 +72,7 @@ class OptionSelectBox : SKSpriteNode {
     private lazy var backButton: DirectionButton = {
         
         //TODO: we need to make sure that this isn't being retained
-        let button = DirectionButton(direction: .Back, size: CGSize(width: self.size.height, height: self.size.height), target: self)
+        let button = DirectionButton(direction: .Back, size: CGSize(width: self.size.height, height: self.size.height))
         button.delegate = self
         button.position = CGPoint(x: (0 - self.size.width / 2) - button.size.width / 2, y: 0)
         button.zPosition = 10
@@ -83,7 +83,7 @@ class OptionSelectBox : SKSpriteNode {
     
     private lazy var forwardButton: DirectionButton = {
         
-        let button = DirectionButton(direction: .Forward, size: CGSize(width: self.size.height, height: self.size.height), target: self)
+        let button = DirectionButton(direction: .Forward, size: CGSize(width: self.size.height, height: self.size.height))
         button.delegate = self
         button.position = CGPoint(x: self.size.width / 2 + button.size.width / 2, y: 0)
         button.zPosition = 10
@@ -128,9 +128,10 @@ class OptionSelectBox : SKSpriteNode {
         currentSelectionIndex = -1
         blank = true
         
-        let textBox: SKSpriteNode = SKSpriteNode(imageNamed: "textbox")
         let insetX: CGFloat = 9
         let insetY: CGFloat = 9
+        
+        let textBox = SKSpriteNode(imageNamed: "textbox")
         textBox.centerRect = CGRect(x: insetX / textBox.size.width, y: insetY / textBox.size.height, width: (textBox.size.width - insetX * 2) / textBox.size.width, height: (textBox.size.height - insetY * 2) / textBox.size.height)
         textBox.xScale = size.width / textBox.size.width
         textBox.yScale = size.height / textBox.size.height
@@ -185,5 +186,4 @@ extension OptionSelectBox: DirectionButtonDelegate {
         delegate.optionSelectBoxDidStartEditing(optionSelectBox: self)
         text = dataSource.selectionAtIndex(optionSelectBox: self, index: currentSelectionIndex)
     }
-    
 }

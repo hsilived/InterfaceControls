@@ -26,9 +26,6 @@ class DirectionButton : SKSpriteNode {
     var background: SKSpriteNode = SKSpriteNode()
     var buttonSound: SKAction!
     
-    var target: AnyObject!
-    var buttonAction: ((DirectionButton) -> ())!
-    
     //MARK: - Lazy Instantiations
     
     private lazy var directionSymbol: SKSpriteNode = {
@@ -43,7 +40,7 @@ class DirectionButton : SKSpriteNode {
         return symbol
     }()
     
-    init(direction: ButtonDirection, size: CGSize, target: AnyObject) {
+    init(direction: ButtonDirection, size: CGSize) {
         
         super.init(texture: nil, color: .clear, size: size)
         
@@ -52,7 +49,6 @@ class DirectionButton : SKSpriteNode {
         let insetY: CGFloat = 9
         
         name = (direction == .Back) ? "back" : "forward"
-        self.target = target
         self.direction = direction
         self.size = CGSize(width: keyWidth, height: size.height)
         zPosition = 10

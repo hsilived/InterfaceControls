@@ -10,8 +10,8 @@ import Foundation
 import SpriteKit
 
 enum NumericDirection : Int {
-    case Down
-    case Up
+    case down
+    case up
 }
 
 protocol NumericButtonDelegate: NSObjectProtocol {
@@ -22,23 +22,19 @@ class NumericButton : SKSpriteNode {
     
     weak var delegate: NumericButtonDelegate?
     
-    var numericDirection: NumericDirection = .Down
-    var background: SKSpriteNode!
-    var numericDirectionSymbol: SKSpriteNode!
-    var buttonSound: SKAction!
-    private var buttonAction: ((NumericButton) -> ())! = nil
-    weak var buttonParent: SKNode?
-    weak var target: SKNode!
-    
-    init(numericDirection: NumericDirection, size: CGSize, target: SKNode) {
+    var numericDirection: NumericDirection = .down
+    private var background: SKSpriteNode!
+    private var numericDirectionSymbol: SKSpriteNode!
+    private var buttonSound: SKAction!
+
+    init(numericDirection: NumericDirection, size: CGSize) {
         
         super.init(texture: nil ,color: .clear, size: size)
         
         let keyWidth: CGFloat = size.width
-        name = numericDirection == .Down ? "down" : "up"
+        name = numericDirection == .down ? "down" : "up"
         self.numericDirection = numericDirection
         self.size = CGSize(width: keyWidth, height: size.height)
-        self.target = target
         isUserInteractionEnabled = true
         zPosition = 1
         
@@ -63,7 +59,7 @@ class NumericButton : SKSpriteNode {
     
     func addSymbol(numericDirection: NumericDirection) {
         
-        if numericDirection == .Up {
+        if numericDirection == .up {
             numericDirectionSymbol = SKSpriteNode(imageNamed: "up_symbol")
         }
         else {

@@ -7,18 +7,21 @@
 //
 import SpriteKit
 
-protocol TextInputBoxDelegate {
+protocol TextInputBoxDelegate: NSObject {
     
     func textInputNodeDidStartEditing(textInputNode: TextInputBox)
     
     //TODO: I think that these 2 should have been optional
     func textInputNodeDidChange(textInputNode: TextInputBox)
     func textInputNodeShouldClear(textInputNode: TextInputBox) -> Bool
+    
+    //this doesn't get called from here. i'm just ensuring that the parent has this func
+    func resetEditingOnAllTextBoxes()
 }
 
 class TextInputBox: SKSpriteNode {
     
-    var delegate: TextInputBoxDelegate!
+    weak var delegate: TextInputBoxDelegate!
     var maxTextLength: Int = 0
     var blank: Bool = false
     var wasEditing: Bool = false
@@ -256,6 +259,8 @@ extension TextInputBox: KeyboardDelegate {
         if (text == "") || (text == " ") {
             resetDefault()
         }
+        
+        toggleCaratSymbolHidden(hidden: true)
         
         keyboard.dismiss()
     }
