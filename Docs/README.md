@@ -126,6 +126,14 @@ For each of the controls that you want to use in your scene you will have to ens
             keyboard?.dismiss()
         }
     }
+    
+then layout your controls in your Scene dictating where you want them and how big you want them using generic Color Sprites
+
+![Instructions](info1.png)
+
+Select each control and assign the appropriate Class in the Custom Class field in the Custom Class Inspector
+
+![Instructions](info2.png)
 
 Some controls require you to setup or supply an array of data at load time
 

@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		637398CC2374785B0004AFE7 /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 637398CB2374785B0004AFE7 /* error.mp3 */; };
 		637398CE23747B8F0004AFE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637398CD23747B8F0004AFE7 /* AppUserDefaults.swift */; };
-		637398D52375B69E0004AFE7 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 637398D02375B69D0004AFE7 /* info.png */; };
 		637398D62375B69E0004AFE7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 637398D12375B69D0004AFE7 /* LICENSE */; };
 		637398D72375B69E0004AFE7 /* example.gif in Resources */ = {isa = PBXBuildFile; fileRef = 637398D22375B69D0004AFE7 /* example.gif */; };
 		637398D82375B69E0004AFE7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 637398D32375B69D0004AFE7 /* README.md */; };
 		637398D92375B69E0004AFE7 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 637398D42375B69D0004AFE7 /* logo.png */; };
+		637398DD2375C49C0004AFE7 /* info1.png in Resources */ = {isa = PBXBuildFile; fileRef = 637398DC2375C49C0004AFE7 /* info1.png */; };
+		637398DF2375C4C70004AFE7 /* info2.png in Resources */ = {isa = PBXBuildFile; fileRef = 637398DE2375C4C70004AFE7 /* info2.png */; };
 		6380A232237085F300E523E1 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6380A231237085F300E523E1 /* GameScene.sks */; };
 		6380A23523708C8800E523E1 /* Molot.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6380A23423708C8800E523E1 /* Molot.otf */; };
 		6380A23723708DC300E523E1 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6380A23623708DC300E523E1 /* Game.xcassets */; };
@@ -58,11 +59,12 @@
 /* Begin PBXFileReference section */
 		637398CB2374785B0004AFE7 /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = error.mp3; sourceTree = "<group>"; };
 		637398CD23747B8F0004AFE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
-		637398D02375B69D0004AFE7 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		637398D12375B69D0004AFE7 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		637398D22375B69D0004AFE7 /* example.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = example.gif; sourceTree = "<group>"; };
 		637398D32375B69D0004AFE7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		637398D42375B69D0004AFE7 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		637398DC2375C49C0004AFE7 /* info1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info1.png; sourceTree = "<group>"; };
+		637398DE2375C4C70004AFE7 /* info2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info2.png; sourceTree = "<group>"; };
 		6380A231237085F300E523E1 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		6380A23423708C8800E523E1 /* Molot.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Molot.otf; sourceTree = "<group>"; };
 		6380A23623708DC300E523E1 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
@@ -120,7 +122,8 @@
 		637398CF2375B69D0004AFE7 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
-				637398D02375B69D0004AFE7 /* info.png */,
+				637398DC2375C49C0004AFE7 /* info1.png */,
+				637398DE2375C4C70004AFE7 /* info2.png */,
 				637398D12375B69D0004AFE7 /* LICENSE */,
 				637398D22375B69D0004AFE7 /* example.gif */,
 				637398D32375B69D0004AFE7 /* README.md */,
@@ -323,13 +326,14 @@
 				637398D92375B69E0004AFE7 /* logo.png in Resources */,
 				6380A23723708DC300E523E1 /* Game.xcassets in Resources */,
 				637398CC2374785B0004AFE7 /* error.mp3 in Resources */,
-				637398D52375B69E0004AFE7 /* info.png in Resources */,
 				6380A23523708C8800E523E1 /* Molot.otf in Resources */,
+				637398DF2375C4C70004AFE7 /* info2.png in Resources */,
 				637398D62375B69E0004AFE7 /* LICENSE in Resources */,
 				63971E7C1C5BCDFC00E3786E /* Assets.xcassets in Resources */,
 				637398D82375B69E0004AFE7 /* README.md in Resources */,
 				6380A2482370A3EF00E523E1 /* LaunchScreen.storyboard in Resources */,
 				637398D72375B69E0004AFE7 /* example.gif in Resources */,
+				637398DD2375C49C0004AFE7 /* info1.png in Resources */,
 				6380A2492370A3EF00E523E1 /* Main.storyboard in Resources */,
 				63971E8E1C5BDFB500E3786E /* tap.caf in Resources */,
 				6380A232237085F300E523E1 /* GameScene.sks in Resources */,
