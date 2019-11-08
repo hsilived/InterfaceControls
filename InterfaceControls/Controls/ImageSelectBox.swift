@@ -418,14 +418,13 @@ class ImageSelectBox: SKSpriteNode {
         print("moveTo \(moveTo)")
         let dropBounce: SKTMoveEffect = SKTMoveEffect(node: imageContainer!, duration: 0.5, startPosition: imageContainer!.position, endPosition: CGPoint(x: moveTo, y: imageContainer!.position.y))
         dropBounce.timingFunction = SKTTimingFunctionExtremeBackEaseOut
-        //move.timingMode = SKActionTimingEaseIn;
+        
         let move = SKAction.actionWith(effect: dropBounce)
         
         if self.currentImageIndex < 0 {
             self.currentImageIndex = 0
         }
-        //print("xMoveActions currentImageIndex \(currentImageIndex)")
-        //print("type \(type)")
+
         imageContainer!.run(move) {
             
             if self.currentImageIndex < 0 {
@@ -433,7 +432,6 @@ class ImageSelectBox: SKSpriteNode {
             }
             self.selectedImage = self.images[self.currentImageIndex]
         }
-        //imageContainer!.run(move)
     }
     
     //MARK: - Touch methods
